@@ -3,14 +3,12 @@ package ConsoleVer.LibraryItem;
 import ConsoleVer.LibraryItem.implem.PaperItem;
 
 public class Magazine extends LibraryItem implements PaperItem {
-    private String name;
-    private String title;
-    private String isbn;
+    private long issueNumber;
+    private String issuer;
 
     public Magazine(){}
-    public Magazine(String name, String title, String isbn){
-        this.name = name;
-        this.title = title;
-        this.isbn = isbn;
+    public Magazine(long issueNumber, String issuer){
+        this.issueNumber = issueNumber;
+        this.issuer = issuer;
     }
 }
