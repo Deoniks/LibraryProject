@@ -19,7 +19,9 @@ public class run {
         } else if ("Member".equals(enterUser)) {
             System.out.println("M");
             Book b = new Book();
-            b.fantasyBook();
+            b.addBook();
+            b.addBook(2);
+            b.printBook();
         }
     }
 

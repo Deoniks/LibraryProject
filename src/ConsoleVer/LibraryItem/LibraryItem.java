@@ -2,7 +2,7 @@ package ConsoleVer.LibraryItem;
 
 public abstract class LibraryItem {
     private int id;
-    private String name;
+    private String name; //Type name(Book, magazine or dvd?)
     private boolean isAvailable;
 
     public LibraryItem(){}
