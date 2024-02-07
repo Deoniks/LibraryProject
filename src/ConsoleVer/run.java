@@ -22,7 +22,6 @@ public class run {
             System.out.println("M");
             Book b = new Book();
             b.addBook();
-            b.addBook(2);
             b.printBook();
         }
     }
