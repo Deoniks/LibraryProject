@@ -11,16 +11,15 @@ import java.util.Scanner;
 public class run {
     private static Scanner scan = new Scanner(System.in);
     private static int wUser = 0; //переменная для хранения выбранного пользователя
-
-
+    private static String librarian = "Librarian";
+    private static String member = "Member";
 
     public static void main(String[] args) {
         String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
-        while ("EXIT".equals(enterUser)){
-            if("Librarian".equals(enterUser)){
-                System.out.println("L");
+        while (!"EXIT".equals(enterUser)){
+            if(librarian.equals(enterUser)){
                 menuLibrarian();
-            } else if ("Member".equals(enterUser)) {
+            } else if (member.equals(enterUser)) {
                 menuMember();
             }
         }
@@ -40,30 +39,18 @@ public class run {
         switch (wUser) {
             case 1:
                 System.out.println("Librarian, please enter login");
-                String loginL = scan.nextLine();
-                for (int i = 0; i < librarian.getLibrarian().length; i++) {
-                    if (loginL.toLowerCase().equals(librarian.getLibrarian()[i][0].toLowerCase())) { //Ввод любым регистром, т.к. регистрирует админ...
-                        System.out.println("Enter password");
-                        String password = scan.nextLine();
-                        if (password.toLowerCase().equals(librarian.getLibrarian()[i][1].toLowerCase())) {
-                            System.out.println("True, this user check");
-                            return "Librarian";
-                        } else {
-                            System.out.println("Sorry,wrong password");
-                        }
-                    } else if(i == librarian.getLibrarian().length-1){
-                        System.out.println("Sorry, it's not user");
-                    }
-                }
-                return "null";
+                String loginLib = scan.nextLine();
+                System.out.println("Enter password");
+                String passwordLib = scan.nextLine();
+                return librarian.enterLibrarian(loginLib,passwordLib);
             case 2:
                 System.out.println("Member, please enter login");
                 String loginM = scan.nextLine();
                 for (int i = 0; i < member.getMember().length; i++) {//Ввод чувствителен к регистру, т.к. это пользователь
                     if (loginM.equals(member.getMember()[i][0])) {
                         System.out.println("Enter password");
-                        String password = scan.nextLine();
-                        if (password.equals(member.getMember()[i][1])) {
+                        String passwordM = scan.nextLine();
+                        if (passwordM.equals(member.getMember()[i][1])) {
                             System.out.println("True, this user check");
                             menuMember();
                             return "Member";
@@ -120,6 +107,35 @@ public class run {
     public static void menuLibrarian(){
         System.out.println("\n_____________________________________________________\n");
         System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
+        while (!scan.hasNextInt()){
+            System.err.println("Please enter 1-4");
+            scan.nextLine();
+        }
+        wUser = scan.nextInt();
+        switch (wUser){
+            case 1->{
+                System.out.println("Rent");
+                Book b = new Book();
+                b.printBook();
+            }
+            case 2->{
+                System.out.println("Return...");
+            }
+            case 3->{
+                System.out.println("Check Profile");
+            }
+            case 4->{
+                System.out.println("Exit:\n1.Profile\n2.Program");
+                while (!scan.hasNextInt()){
+                    scan.nextLine();
+                }
+                int exit = scan.nextInt();
+                switch (exit){
+                    case 1->loginMenu();
+                    case 2-> exitProg();
+                }
+            }
+        }
     }
 
     public static String exitProg(){

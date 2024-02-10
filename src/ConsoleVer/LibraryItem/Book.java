@@ -1,6 +1,7 @@
 package ConsoleVer.LibraryItem;
 
 import ConsoleVer.LibraryItem.implem.PaperItem;
+import ConsoleVer.Users.Librarian;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -89,8 +90,12 @@ public class Book extends LibraryItem implements PaperItem {
         }
     }
 
-    public void borrowableBook(){
-
+    public void borrowableBook(int id){
+        for(int i = 0; i<books.size();i++){
+            if(id == books.get(i).getId()){
+               books.get(i).setAvailable(false);
+            }
+        }
     }
 
     public String getAuthor() {
@@ -116,10 +121,67 @@ public class Book extends LibraryItem implements PaperItem {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    public void findBookToTitle(String title) {
-        for (int i = 0; i < books.size(); i++) {
-            if (title.equals(books.get(i).getTitle())) {
-                System.out.println(books.get(i).getTitle());
+    public void printFindBookToTitle(String user, String title) {// find to one word or all string
+        if(user.equals("Librarian")){
+            if(title == null || title.equals(" ")){
+                System.err.println("Not title");
+            }else {
+                for (int i = 0; i < books.size(); i++) {
+                    String equ = books.get(i).getTitle().toLowerCase();
+                    if (title.toLowerCase().equals(equ)) {
+                        System.out.println(books.get(i).getTitle());
+                    }else if(!title.toLowerCase().equals(equ)) {
+                        String[] arrEqu = equ.split(" ");
+                        for (String word:arrEqu){
+                            if (title.toLowerCase().equals(word)) {
+                                System.out.println(books.get(i).getTitle());
+                            }
+                        }
+                    }else {
+                        System.err.println("Not found title");
+                    }
+                }
+            }
+        }else if(user.equals("Member")){
+            if(title == null || title.equals(" ")){
+                System.err.println("Not title");
+            }else {
+                for (int i = 0; i < books.size(); i++) {
+                    String equ = books.get(i).getTitle().toLowerCase();
+                    if (title.toLowerCase().equals(equ) && books.get(i).isAvailable()==true) {
+                        System.out.println(books.get(i).getTitle());
+                    }else if(!title.toLowerCase().equals(equ)) {
+                        String[] arrEqu = equ.split(" ");
+                        for (String word:arrEqu){
+                            if (title.toLowerCase().equals(word) && books.get(i).isAvailable()==true) {
+                                System.out.println(books.get(i).getTitle());
+                            }
+                        }
+                    }else {
+                        System.err.println("Not found title");
+                    }
+                }
+            }
+        }
+    }
+    public void printFindBookToAuthor(String author){
+        if(author == null || author.equals(" ")){
+            System.err.println("Not input author");
+        }else {
+            for (int i = 0; i < books.size(); i++) {
+                String equ = books.get(i).getAuthor().toLowerCase();
+                if (author.toLowerCase().equals(equ)) {
+                    System.out.println(books.get(i));
+                }else if(!author.toLowerCase().equals(equ)) {
+                    String[] arrEqu = equ.split(" ");
+                    for (String word:arrEqu){
+                        if (author.toLowerCase().equals(word)) {
+                            System.out.println(books.get(i));
+                        }
+                    }
+                }else {
+                    System.err.println("Not found author");
+                }
             }
         }
     }

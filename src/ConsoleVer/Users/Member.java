@@ -1,5 +1,6 @@
 package ConsoleVer.Users;
 
+import ConsoleVer.LibraryItem.Book;
 import ConsoleVer.LibraryItem.implem.BorrowableItem;
 
 public class Member extends Users{
@@ -13,5 +14,8 @@ public class Member extends Users{
 
     public String [][] getMember(){
         return isCheckMem;
+    }
+    public void setBorrowableItem(Book b){
+        borrowableItem = new BorrowableItem[10];
     }
 }
