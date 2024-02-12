@@ -13,7 +13,6 @@ public abstract class LibraryItem {
     }
 
     public void displayDetails(){
-
     }
 
     public int getId() {

@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Book extends LibraryItem implements PaperItem {
     private Scanner scan = new Scanner(System.in);
-
     private String author;
     private String title;
     private String isbn; //международный стандартный книжный номер
@@ -30,6 +29,9 @@ public class Book extends LibraryItem implements PaperItem {
     }
 
 
+    public LinkedList<Book> getBooks(){
+        return books;
+    }
 
     public void addBook(){ // add one book
         System.out.println("Enter Author");
@@ -72,14 +74,35 @@ public class Book extends LibraryItem implements PaperItem {
             books.add(b);
         }
     }
-
     public void printBook(){ // Print All Book
         try {
             for(int i = 0; i<books.size(); i++){
-            System.out.println(books.get(i));
+                System.out.println(books.get(i));
             }
         }catch (IndexOutOfBoundsException IOOBExce){
             System.err.println("Not book's");
+        }
+    }
+
+    public void printBook(String user){ // Print All Book
+        if(user.equals("Member")){
+            try {
+                for(int i = 0; i<books.size(); i++){
+                    if(books.get(i).isAvailable()==true){
+                        System.out.println(books.get(i));
+                    }
+             }
+        }catch (IndexOutOfBoundsException IOOBExce){
+                System.err.println("Not book's");
+            }
+        } else if (user.equals("Librarian")) {
+            try {
+                for(int i = 0; i<books.size(); i++){
+                    System.out.println(books.get(i));
+                }
+            }catch (IndexOutOfBoundsException IOOBExce){
+                System.err.println("Not book's");
+            }
         }
     }
     public void printBook(int val){ // Print n- Book

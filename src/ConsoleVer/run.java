@@ -10,9 +10,12 @@ import java.util.Scanner;
 
 public class run {
     private static Scanner scan = new Scanner(System.in);
+    private static Librarian lib = new Librarian();
+    private static Member mem = new Member();
     private static int wUser = 0; //переменная для хранения выбранного пользователя
     private static String librarian = "Librarian";
     private static String member = "Member";
+    private static Book book = new Book();
 
     public static void main(String[] args) {
         String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
@@ -81,8 +84,32 @@ public class run {
         switch (wUser){
             case 1->{
                 System.out.println("Rent");
-                Book b = new Book();
-                b.printBook();
+                while (!scan.hasNextInt()){
+                    System.err.println("Please enter 1-3");
+                    scan.nextLine();
+                }
+                int rent = scan.nextInt();
+                switch (rent){
+                    case 1->{
+                        System.out.println("Book");
+                        book.printBook(mem.getAuthorization());
+                        System.out.println("Please enter id book");
+                        int entUid = 0;
+                        while (!scan.hasNextInt()){
+                            System.err.println("Please enter num");
+                        }
+                        if(entUid == book){
+                            book.borrowableBook(entUid);
+                        }
+
+                    }
+                    case 2->{
+                        System.out.println("DVD");
+                    }
+                    case 3->{
+                        System.out.println("Magazine");
+                    }
+                }
             }
             case 2->{
                 System.out.println("Return...");
@@ -97,7 +124,9 @@ public class run {
                 }
                 int exit = scan.nextInt();
                 switch (exit){
-                    case 1->loginMenu();
+                    case 1->{
+                        mem.setAuthorization("N");
+                        loginMenu();}
                     case 2-> exitProg();
                 }
             }

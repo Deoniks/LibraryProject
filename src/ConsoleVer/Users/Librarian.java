@@ -15,6 +15,9 @@ public class Librarian extends Users{
     public String getAuthorization(){
         return authorization;
     }
+    public void setAuthorization(String authorization){
+        this.authorization = authorization;
+    }
     public String enterLibrarian(String login, String password){
         for (int i = 0; i < getLibrarian().length; i++) {
             if (login.toLowerCase().equals(getLibrarian()[i][0].toLowerCase())) { //Ввод любым регистром, т.к. регистрирует админ...
