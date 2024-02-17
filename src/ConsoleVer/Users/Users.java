@@ -18,10 +18,10 @@ public abstract class Users {
         this.role = role;
     }
 
-    public void activate(){
-
+    public boolean activate(){
+        return true;
     }
-    public void deactivate(){
-
+    public boolean deactivate(){
+        return false;
     }
 }

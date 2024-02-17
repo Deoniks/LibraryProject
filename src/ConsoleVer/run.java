@@ -10,11 +10,11 @@ import java.util.Scanner;
 
 public class run {
     private static Scanner scan = new Scanner(System.in);
-    private static Librarian lib = new Librarian();
-    private static Member mem = new Member();
+    private static Librarian librarian = new Librarian();
+    private static Member member = new Member();
     private static int wUser = 0; //переменная для хранения выбранного пользователя
-    private static String librarian = "Librarian";
-    private static String member = "Member";
+    private static String lib = "Librarian";
+    private static String memb = "Member";
     private static Book book = new Book();
 
     public static void main(String[] args) {
@@ -28,9 +28,8 @@ public class run {
         }
         System.out.println("Bye!");
     }
-
     public static String loginMenu() {
-        Librarian librarian = new Librarian();
+
         Member member = new Member();
         System.out.println("Who you(Pls input 1 or 2):\n1.Librarian \n2.Member");
         while (!scan.hasNextInt()) { //Вместо try-catch системы использовал данную конструкцию, данный момент это позволяет...
@@ -72,7 +71,6 @@ public class run {
                 return loginMenu();
         }
     }
-
     public static void menuMember(){
         System.out.println("\n_____________________________________________________\n");
         System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
@@ -92,14 +90,11 @@ public class run {
                 switch (rent){
                     case 1->{
                         System.out.println("Book");
-                        book.printBook(mem.getAuthorization());
+                        book.printBook(member.getAuthorization());
                         System.out.println("Please enter id book");
                         int entUid = 0;
                         while (!scan.hasNextInt()){
                             System.err.println("Please enter num");
-                        }
-                        if(entUid == book){
-                            book.borrowableBook(entUid);
                         }
 
                     }
@@ -125,13 +120,14 @@ public class run {
                 int exit = scan.nextInt();
                 switch (exit){
                     case 1->{
-                        mem.setAuthorization("N");
+                        member.setAuthorization("N");
                         loginMenu();}
                     case 2-> exitProg();
                 }
             }
         }
     }
+
 
     public static void menuLibrarian(){
         System.out.println("\n_____________________________________________________\n");
@@ -166,7 +162,6 @@ public class run {
             }
         }
     }
-
     public static String exitProg(){
         return "EXIT";
     }

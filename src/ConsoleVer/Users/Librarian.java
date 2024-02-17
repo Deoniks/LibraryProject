@@ -34,4 +34,11 @@ public class Librarian extends Users{
         return "";
     }
 
+    public void activateUser(Member user){
+        user.deactivate();
+    }
+    public void deactivateUser(Member user){
+        user.deactivate();
+    }
+
 }
