@@ -14,7 +14,7 @@ public class run {
     private static Member member = new Member();
     private static String exitToLogin = "Exit Profile";
     private static String exitToProgram = "Exit Program";
-    private static String isExit = "n";
+    private static String isExit = exitToLogin;
     private static int wUser = 0; //переменная для хранения выбранного пользователя
     private static String lib = "Librarian";
     private static String memb = "Member";
@@ -34,8 +34,6 @@ public class run {
 
 
     public static String loginMenu() {
-
-        Member member = new Member();
         System.out.println("Who you(Pls input 1 or 2):\n1.Librarian \n2.Member");
         while (!scan.hasNextInt()) { //Вместо try-catch системы использовал данную конструкцию, данный момент это позволяет...
             System.err.println("Pleas input 1 or 2 ");
@@ -53,87 +51,68 @@ public class run {
             case 2:
                 System.out.println("Member, please enter login");
                 String loginM = scan.nextLine();
-                for (int i = 0; i < member.getMember().length; i++) {//Ввод чувствителен к регистру, т.к. это пользователь
-                    if (loginM.equals(member.getMember()[i][0])) {
-                        System.out.println("Enter password");
-                        String passwordM = scan.nextLine();
-                        if (passwordM.equals(member.getMember()[i][1])) {
-                            System.out.println("True, this user check");
-                            menuMember();
-                            return "Member";
-                        } else {
-                            System.out.println("Sorry,wrong password");
-                        }
-                    }else if(i == member.getMember().length-1){
-                        System.out.println("This users it's not found");
-                    }
-                }
-                return "null";
-
+                System.out.println("Enter password");
+                String passwordM = scan.nextLine();
+                return member.enterMember(loginM,passwordM);
             default:
                 System.err.println("Not found users");
                 scan.nextLine();
-                return loginMenu();
+                return selectExit(exitToLogin);
         }
     }
-    public static void menuMember(){
-        System.out.println("\n_____________________________________________________\n");
-        System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
-        while (!scan.hasNextInt()){
-            System.err.println("Please enter 1-4");
-            scan.nextLine();
-        }
-        wUser = scan.nextInt();
-        switch (wUser){
-            case 1->{
-                System.out.println("Rent");
-                while (!scan.hasNextInt()){
-                    System.err.println("Please enter 1-3");
-                    scan.nextLine();
-                }
-                int rent = scan.nextInt();
-                switch (rent){
-                    case 1->{
-                        System.out.println("Book");
-                        book.printBook(member.getAuthorization());
-                        System.out.println("Please enter id book");
-                        int entUid = 0;
-                        while (!scan.hasNextInt()){
-                            System.err.println("Please enter num");
-                        }
+    public static void menuMember() {
+        while (!isExit.equals(exitToProgram)) {
+            System.out.println("\n_____________________________________________________\n");
+            System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
+            while (!scan.hasNextInt()) {
+                System.err.println("Please enter 1-4");
+                scan.nextLine();
+            }
+            wUser = scan.nextInt();
+            switch (wUser) {
+                case 1 -> {
+                    selectExit(exitToLogin);
+                    System.out.println("Rent");
+                    while (!scan.hasNextInt()) {
+                        System.err.println("Please enter 1-3");
+                        scan.nextLine();
+                    }
+                    int rent = scan.nextInt();
+                    switch (rent) {
+                        case 1 -> {
+                            System.out.println("Book");
+                            book.printBook(member.getAuthorization());
+                            System.out.println("Please enter id book");
+                            int entUid = 0;
+                            while (!scan.hasNextInt()) {
+                                System.err.println("Please enter num");
+                            }
 
-                    }
-                    case 2->{
-                        System.out.println("DVD");
-                    }
-                    case 3->{
-                        System.out.println("Magazine");
+                        }
+                        case 2 -> {
+                            System.out.println("DVD");
+                        }
+                        case 3 -> {
+                            System.out.println("Magazine");
+                        }
                     }
                 }
-            }
-            case 2->{
-                System.out.println("Return...");
-            }
-            case 3->{
-                System.out.println("Check Profile");
-            }
-            case 4->{
-                System.out.println("Exit:\n1.Profile\n2.Program");
-                while (!scan.hasNextInt()){
-                    scan.nextLine();
+                case 2 -> {
+                    selectExit(exitToLogin);
+                    System.out.println("Return...");
                 }
-                int exit = scan.nextInt();
-                switch (exit){
-                    case 1->{
-                        member.setAuthorization("N");
-                        loginMenu();}
-                    case 2-> System.out.println(exit);
+                case 3 -> {
+                    selectExit(exitToLogin);
+                    System.out.println("Check Profile");
+                }
+                case 4 -> {
+                    System.out.println("Exit:\n1.Profile\n2.Program");
+                    exitMethod();
                 }
             }
         }
     }
     public static void menuLibrarian() {
-        //String isExit = "n";
         while (!isExit.equals(exitToProgram)){
             System.out.println("\n_____________________________________________________\n");
             System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
@@ -144,17 +123,17 @@ public class run {
             wUser = scan.nextInt();
             switch (wUser) {
                 case 1 -> {
-                    isExit = exitToLogin;
+                    selectExit(exitToLogin);
                     System.out.println("Rent");
                     Book b = new Book();
                     b.printBook();
                 }
                 case 2 -> {
-                    isExit = exitToLogin;
+                    selectExit(exitToLogin);
                     System.out.println("Return...");
                 }
                 case 3 -> {
-                    isExit = exitToLogin;
+                    selectExit(exitToLogin);
                     System.out.println("Check Profile");
                 }
                 case 4 -> {

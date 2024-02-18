@@ -28,13 +28,17 @@ public class Member extends Users{
         this.authorization = authorization;
     }
     public String enterMember(String login, String password){
-        for(int i=0;i<getMember().length;i++){
+        for(int i=0;i<getMember().length;i++){ //Ввод чувствителен к регистру, т.к. это пользователь
             if(login.equals(getMember()[i][0])){
                 if(password.equals(getMember()[i][1])){
                     this.authorization="Member";
                     return authorization;
                 }else authorization="N";
-            }else authorization = "N";
+            }else if(i == getMember().length-1){
+                System.out.println("This users it's not found");
+                this.authorization = "N";
+                return authorization;
+            }
         }
         return authorization = "N";
     }

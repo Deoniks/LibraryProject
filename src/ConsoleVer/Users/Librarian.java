@@ -22,7 +22,6 @@ public class Librarian extends Users{
         for (int i = 0; i < getLibrarian().length; i++) {
             if (login.toLowerCase().equals(getLibrarian()[i][0].toLowerCase())) { //Ввод любым регистром, т.к. регистрирует админ...
                 if (password.toLowerCase().equals(getLibrarian()[i][1].toLowerCase())) {
-                    System.out.println("True, this user check");
                     this.authorization = "Librarian";
                     return authorization;
                 }
