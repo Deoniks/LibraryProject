@@ -211,7 +211,6 @@ public class Book extends LibraryItem implements PaperItem {
 
     private static void Lib(){
         int valBook = 51;
-        //Book book = new Book("Роулинг Джоан","Гарри Поттер и философский камень","74370695653",111,"f", true);
         Book[] b = new Book[51];
         b[0] = new Book("Роулинг Джоан","Гарри Поттер и философский камень","74370695653",101,"", true);
         b[1] = new Book("Роулинг Джоан","Гарри Поттер и Тайная комната","87342393654",102,"f", true);
@@ -263,7 +262,7 @@ public class Book extends LibraryItem implements PaperItem {
         b[47] = new Book("Коллективная","Большая Советская Энциклопедия","3287851436252",148,"", true);
         b[48] = new Book("Михаил Булгаков","Мастер и Маргарита","2285856456252",149,"", true);
         b[49] = new Book("Михаил Булгаков","Собачье сердце","2382851435253",150,"", true);
-        b[50] = new Book("Михаил Булгаков","Иван Васильевич","2287245426242",151,"", true);
+        b[50] = new Book("Михаил Булгаков","Иван Васильевичь","2287245426242",151,"", true);
         for(int i =0;i<valBook;i++){
             books.add(b[i]);
         }

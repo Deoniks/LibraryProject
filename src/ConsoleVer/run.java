@@ -12,22 +12,27 @@ public class run {
     private static Scanner scan = new Scanner(System.in);
     private static Librarian librarian = new Librarian();
     private static Member member = new Member();
+    private static String exitToLogin = "Exit Profile";
+    private static String exitToProgram = "Exit Program";
+    private static String isExit = "n";
     private static int wUser = 0; //переменная для хранения выбранного пользователя
     private static String lib = "Librarian";
     private static String memb = "Member";
     private static Book book = new Book();
 
     public static void main(String[] args) {
-        String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
-        while (!"EXIT".equals(enterUser)){
-            if(librarian.equals(enterUser)){
+        while (isExit.equals(exitToLogin)) {
+            String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
+            if (lib.equals(enterUser)) {
                 menuLibrarian();
-            } else if (member.equals(enterUser)) {
+            } else if (memb.equals(enterUser)) {
                 menuMember();
             }
         }
         System.out.println("Bye!");
     }
+
+
     public static String loginMenu() {
 
         Member member = new Member();
@@ -122,47 +127,67 @@ public class run {
                     case 1->{
                         member.setAuthorization("N");
                         loginMenu();}
-                    case 2-> exitProg();
+                    case 2-> System.out.println(exit);
+                }
+            }
+        }
+    }
+    public static void menuLibrarian() {
+        //String isExit = "n";
+        while (!isExit.equals(exitToProgram)){
+            System.out.println("\n_____________________________________________________\n");
+            System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
+            while (!scan.hasNextInt()) {
+                System.err.println("Please enter 1-4");
+                scan.nextLine();
+            }
+            wUser = scan.nextInt();
+            switch (wUser) {
+                case 1 -> {
+                    isExit = exitToLogin;
+                    System.out.println("Rent");
+                    Book b = new Book();
+                    b.printBook();
+                }
+                case 2 -> {
+                    isExit = exitToLogin;
+                    System.out.println("Return...");
+                }
+                case 3 -> {
+                    isExit = exitToLogin;
+                    System.out.println("Check Profile");
+                }
+                case 4 -> {
+                    System.out.println("Exit:\n1.Profile\n2.Program");
+                    exitMethod();
                 }
             }
         }
     }
 
-
-    public static void menuLibrarian(){
-        System.out.println("\n_____________________________________________________\n");
-        System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
-        while (!scan.hasNextInt()){
-            System.err.println("Please enter 1-4");
+    public static String exitMethod(){
+        while (!scan.hasNextInt()) {
             scan.nextLine();
         }
-        wUser = scan.nextInt();
-        switch (wUser){
-            case 1->{
-                System.out.println("Rent");
-                Book b = new Book();
-                b.printBook();
-            }
-            case 2->{
-                System.out.println("Return...");
-            }
-            case 3->{
-                System.out.println("Check Profile");
-            }
-            case 4->{
-                System.out.println("Exit:\n1.Profile\n2.Program");
-                while (!scan.hasNextInt()){
-                    scan.nextLine();
+        int exit = scan.nextInt();
+        if (exit > 0 && exit < 3) {
+            switch (exit) {
+                case 1 -> {
+                    return selectExit(exitToLogin);
                 }
-                int exit = scan.nextInt();
-                switch (exit){
-                    case 1->loginMenu();
-                    case 2-> exitProg();
+                case 2 -> {
+                    return selectExit(exitToProgram);
                 }
             }
+        } else if (exit > 2) {
+            System.err.println("Sorry, there is no such option.");
+            return selectExit(exitToLogin);
         }
+        return selectExit("n");
     }
-    public static String exitProg(){
-        return "EXIT";
+
+    public static String selectExit(String exit){
+        isExit = exit;
+        return exit;
     }
 }
