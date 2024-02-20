@@ -32,7 +32,6 @@ public class run {
         System.out.println("Bye!");
     }
 
-
     public static String loginMenu() {
         System.out.println("Who you(Pls input 1 or 2):\n1.Librarian \n2.Member");
         while (!scan.hasNextInt()) { //Вместо try-catch системы использовал данную конструкцию, данный момент это позволяет...
@@ -143,7 +142,6 @@ public class run {
             }
         }
     }
-
     public static String exitMethod(){
         while (!scan.hasNextInt()) {
             scan.nextLine();
@@ -164,7 +162,6 @@ public class run {
         }
         return selectExit("n");
     }
-
     public static String selectExit(String exit){
         isExit = exit;
         return exit;

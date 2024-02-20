@@ -9,6 +9,11 @@ public class Member extends Users{
     private String authorization = "N";
     private boolean isActive = true;
 
+    public Member(){} //To work with requests
+    public Member(String login){ //To authorization and create new Account
+
+    }
+
 
     public void checkAccountStatus(){
         if(isActive!=false){
