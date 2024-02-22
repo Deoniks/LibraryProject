@@ -12,16 +12,16 @@ public class run {
     private static Scanner scan = new Scanner(System.in);
     private static Librarian librarian = new Librarian();
     private static Member member = new Member();
-    private static String exitToLogin = "Exit Profile";
-    private static String exitToProgram = "Exit Program";
-    private static String isExit = exitToLogin;
+    private static boolean exitToLogin = false;
+    private static boolean exitToProgram = false;
     private static int wUser = 0; //переменная для хранения выбранного пользователя
-    private static String lib = "Librarian";
-    private static String memb = "Member";
+    private static String lib = "Librarian"; // можно было бы использовать буливу переменную, но...
+    private static String memb = "Member";// Не забыть переделать систему авторизации... Одна булева переменная, после выхода менять на false
     private static Book book = new Book();
 
     public static void main(String[] args) {
-        while (isExit.equals(exitToLogin)) {
+        while (exitToProgram == false) {
+            exitToLogin = false;
             String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
             if (lib.equals(enterUser)) {
                 menuLibrarian();
@@ -56,11 +56,11 @@ public class run {
             default:
                 System.err.println("Not found users");
                 scan.nextLine();
-                return selectExit(exitToLogin);
+                return "n";
         }
     }
     public static void menuMember() {
-        while (!isExit.equals(exitToProgram)) {
+        while (exitToLogin == false) {
             System.out.println("\n_____________________________________________________\n");
             System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
             while (!scan.hasNextInt()) {
@@ -70,7 +70,6 @@ public class run {
             wUser = scan.nextInt();
             switch (wUser) {
                 case 1 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Rent");
                     while (!scan.hasNextInt()) {
                         System.err.println("Please enter 1-3");
@@ -97,12 +96,13 @@ public class run {
                     }
                 }
                 case 2 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Return...");
                 }
                 case 3 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Check Profile");
+                    if(member.test() == true){
+                        System.out.println("Active");
+                    }else System.out.println("False");
                 }
                 case 4 -> {
                     System.out.println("Exit:\n1.Profile\n2.Program");
@@ -112,7 +112,7 @@ public class run {
         }
     }
     public static void menuLibrarian() {
-        while (!isExit.equals(exitToProgram)){
+        while (exitToLogin == false){
             System.out.println("\n_____________________________________________________\n");
             System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
             while (!scan.hasNextInt()) {
@@ -122,17 +122,15 @@ public class run {
             wUser = scan.nextInt();
             switch (wUser) {
                 case 1 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Rent");
                     Book b = new Book();
                     b.printBook();
                 }
                 case 2 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Return...");
+                    menuActivateOrDeactivate();
                 }
                 case 3 -> {
-                    selectExit(exitToLogin);
                     System.out.println("Check Profile");
                 }
                 case 4 -> {
@@ -142,7 +140,7 @@ public class run {
             }
         }
     }
-    public static String exitMethod(){
+    public static boolean exitMethod(){
         while (!scan.hasNextInt()) {
             scan.nextLine();
         }
@@ -150,20 +148,30 @@ public class run {
         if (exit > 0 && exit < 3) {
             switch (exit) {
                 case 1 -> {
-                    return selectExit(exitToLogin);
+                    return exitToLogin = true;
                 }
                 case 2 -> {
-                    return selectExit(exitToProgram);
+                    return exitToProgram = false;
                 }
             }
         } else if (exit > 2) {
             System.err.println("Sorry, there is no such option.");
-            return selectExit(exitToLogin);
+            return exitToLogin = false;
         }
-        return selectExit("n");
+        return exitToProgram = true;
     }
-    public static String selectExit(String exit){
-        isExit = exit;
-        return exit;
+    public static String menuActivateOrDeactivate(){
+        while (!scan.hasNextInt()){
+            scan.nextLine();
+        }
+        int n = scan.nextInt();
+        if(n==1){
+            librarian.activateUser(member,"Berek");
+            return "Activate";
+        }else if(n==2){
+            librarian.deactivateUser(member,"Berek");
+            return "Deactivate";
+        }
+        return "n";
     }
 }
