@@ -33,12 +33,16 @@ public class Librarian extends Users{
         return "";
     }
     public void activateUser(Member user,String login){
-        user.activate();
+        for (int i =0; i<=user.getUsers().size();i++){
+            if(login.equals(user.getUsers().get(i).getLogin())){
+                user.getUsers().get(i).activate();
+            }
+        }
     }
     public void deactivateUser(Member user, String login){
-        for(int i =0; i<user.getMember().length-1;i++){
-            if(user.getMember()[i][0].equals(login)){
-                user.deactivate();
+        for(int i =0; i<user.getUsers().size();i++){
+            if(user.getUsers().get(i).getLogin().equals(login)){
+                user.getUsers().get(i).deactivate();
             }
         }
     }

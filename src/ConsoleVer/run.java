@@ -156,7 +156,7 @@ public class run {
             }
         } else if (exit > 2) {
             System.err.println("Sorry, there is no such option.");
-            return exitToLogin = false;
+            return exitToLogin = true;
         }
         return exitToProgram = true;
     }
