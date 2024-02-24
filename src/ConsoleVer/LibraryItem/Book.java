@@ -14,7 +14,6 @@ public class Book extends LibraryItem implements PaperItem {
     private String isbn; //международный стандартный книжный номер
 
     private static LinkedList<Book> books = new LinkedList<>(); // Collection for save book's
-    private static String[] fantasyB;
 
     public Book(){
         Lib();
@@ -53,7 +52,6 @@ public class Book extends LibraryItem implements PaperItem {
         Book b = new Book(inAuthor,inTitle,inIsbn,inId,inType,true);
         books.add(b);
     }
-
     public void addBook(int val){ // add n-book
         for(int i =0;i<=val;i++){
             System.out.println("Enter Author");

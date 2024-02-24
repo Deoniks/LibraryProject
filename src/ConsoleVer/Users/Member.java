@@ -1,9 +1,13 @@
 package ConsoleVer.Users;
 
 import ConsoleVer.LibraryItem.Book;
+import ConsoleVer.LibraryItem.Dvd;
+import ConsoleVer.LibraryItem.Magazine;
 import ConsoleVer.LibraryItem.implem.BorrowableItem;
+import ConsoleVer.MyException.UndefinedItemException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Member extends Users{
@@ -11,7 +15,7 @@ public class Member extends Users{
     private String login;
     private String password;
     private LinkedList<Member> users = new LinkedList<>();
-    private BorrowableItem[] borrowableItem;
+    private HashMap<Integer,LinkedList<Object>>borrowableItem = new HashMap<>();
     private String authorization = "N";
     private boolean isActive = true;
 
@@ -49,9 +53,6 @@ public class Member extends Users{
         }else System.out.println("You account is deactive");
     }
 
-    public void setBorrowableItem(Book b){
-        borrowableItem = new BorrowableItem[10];
-    }
     public String getAuthorization(){
         return authorization;
     }
@@ -87,6 +88,10 @@ public class Member extends Users{
         for (int i =0;i<m.length;i++){
             users.add(m[i]);
         }
+        Book book = new Book();
+        Magazine magazine = new Magazine();
+        Dvd dvd = new Dvd();
+
     }
 
     public boolean activate(){
@@ -100,5 +105,16 @@ public class Member extends Users{
         if(isActive == true){
             return true;
         }else return false;
+    }
+
+    public void setBorrowableItem(Object object,int i) throws UndefinedItemException {
+        if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd) {
+            System.out.println("True");
+            if(object instanceof Book){
+                Book book = new Book();
+            }
+        }else {
+            throw new UndefinedItemException();
+        }
     }
 }
