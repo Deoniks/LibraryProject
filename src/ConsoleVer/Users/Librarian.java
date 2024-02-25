@@ -22,7 +22,6 @@ public class Librarian extends Users{
         for (int i = 0; i < getLibrarian().length; i++) {
             if (login.toLowerCase().equals(getLibrarian()[i][0].toLowerCase())) { //Ввод любым регистром, т.к. регистрирует админ...
                 if (password.toLowerCase().equals(getLibrarian()[i][1].toLowerCase())) {
-                    System.out.println("True, this user check");
                     this.authorization = "Librarian";
                     return authorization;
                 }
@@ -33,12 +32,19 @@ public class Librarian extends Users{
         }
         return "";
     }
-
-    public void activateUser(Member user){
-        user.deactivate();
+    public void activateUser(Member user,String login){
+        for (int i =0; i<=user.getUsers().size();i++){
+            if(login.equals(user.getUsers().get(i).getLogin())){
+                user.getUsers().get(i).activate();
+            }
+        }
     }
-    public void deactivateUser(Member user){
-        user.deactivate();
+    public void deactivateUser(Member user, String login){
+        for(int i =0; i<user.getUsers().size();i++){
+            if(user.getUsers().get(i).getLogin().equals(login)){
+                user.getUsers().get(i).deactivate();
+            }
+        }
     }
 
 }

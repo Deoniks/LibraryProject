@@ -12,6 +12,10 @@ public abstract class LibraryItem {
         this.isAvailable = isAvailable;
     }
 
+    public void addBookUser(){
+
+    }
+
     public void displayDetails(){
     }
 

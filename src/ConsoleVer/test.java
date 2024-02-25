@@ -1,10 +1,58 @@
 package ConsoleVer;
 
 import ConsoleVer.LibraryItem.Book;
+import ConsoleVer.LibraryItem.Dvd;
+import ConsoleVer.LibraryItem.Magazine;
+import ConsoleVer.MyException.UndefinedItemException;
+import ConsoleVer.Users.Librarian;
+import ConsoleVer.Users.Member;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class test {
+    static Scanner scan = new Scanner(System.in);
+    private static String exitToLogin = "Exit Profile";
+    private static String exitToProgram = "Exit Program";
     public static void main(String[] args) {
+        testAddItem();
+    }
+
+    private static void testAddItem(){
+        LinkedList<Book> i = new LinkedList<>();
         Book b = new Book();
-        b.findBookToTitle("Гарри Поттер и философский камень");
+        i.add(b.getBooks().get(3));
+        System.out.println(i.get(0));
+
+        Book bo = new Book();
+        Dvd d = new Dvd();
+        Magazine mag = new Magazine();
+        Librarian l = new Librarian();
+        Member m = new Member();
+        try {
+            m.setBorrowableItem(bo,2);
+            System.out.println();
+        }catch (UndefinedItemException e){
+            System.err.println("This class is not a subclass of library item");
+        }
+    }
+
+    private static void testStart(){
+        String exit = exitToProgram;
+        do {
+            Book b = new Book();
+            b.borrowableBook(105);
+            b.printFindBookToTitle("Member", "Гарри");
+            int n = scan.nextInt();
+            scan.nextLine();
+            switch (n){
+                case 1 ->{
+                    exit = exitToLogin;
+                }
+                case 2 ->
+                    exit = exitToProgram;
+            }
+        }while (!exit.equals(exitToLogin));
     }
 }
