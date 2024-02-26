@@ -70,7 +70,7 @@ public class run {
             wUser = scan.nextInt();
             switch (wUser) {
                 case 1 -> {
-                    System.out.println("Rent");
+                    System.out.println("1.Book\n2.Magazine\n3.DvD");
                     while (!scan.hasNextInt()) {
                         System.err.println("Please enter 1-3");
                         scan.nextLine();
@@ -78,7 +78,6 @@ public class run {
                     int rent = scan.nextInt();
                     switch (rent) {
                         case 1 -> {
-                            System.out.println("Book");
                             book.printBook(member.getAuthorization());
                             System.out.println("Please enter id book");
                             int entUid = 0;
@@ -127,7 +126,7 @@ public class run {
                     b.printBook();
                 }
                 case 2 -> {
-                    System.out.println("Return...");
+                    System.out.println("1.Activate Profile\n2.Deactivate Profile");
                     menuActivateOrDeactivate();
                 }
                 case 3 -> {
@@ -169,7 +168,7 @@ public class run {
             librarian.activateUser(member,"Berek");
             return "Activate";
         }else if(n==2){
-            librarian.deactivateUser(member,"Berek");
+            librarian.deactivateUser(member,"Ali");
             return "Deactivate";
         }
         return "n";

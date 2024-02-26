@@ -15,7 +15,7 @@ public class Member extends Users{
     private String login;
     private String password;
     private LinkedList<Member> users = new LinkedList<>();
-    private HashMap<Integer,LinkedList<Object>>borrowableItem = new HashMap<>();
+    private HashMap<Integer,Book>borrowableBook = new HashMap<>();
     private String authorization = "N";
     private boolean isActive = true;
 
@@ -88,10 +88,6 @@ public class Member extends Users{
         for (int i =0;i<m.length;i++){
             users.add(m[i]);
         }
-        Book book = new Book();
-        Magazine magazine = new Magazine();
-        Dvd dvd = new Dvd();
-
     }
 
     public boolean activate(){
@@ -115,6 +111,40 @@ public class Member extends Users{
             }
         }else {
             throw new UndefinedItemException();
+        }
+    }
+
+    public void setBorrowableBook(Book book){
+        int keys = 0;
+        if(borrowableBook.size() == 0 && keys == 0){
+            borrowableBook.put(keys++,book);
+        }else {
+            for(int i =0; i < borrowableBook.size();i++){
+                keys++;
+            }
+            borrowableBook.put(++keys,book);
+            System.out.println(borrowableBook.get(keys));
+        }
+    }
+
+    public void returnBorrowableBook(int index){
+        int keys = 0;
+        if(index > -1){
+            for(int i = 0;i < borrowableBook.size();i++){
+                if(index == i){
+                    keys = i;
+                    borrowableBook.replace(i,borrowableBook.get(++keys));
+                    System.out.println("You return Book");
+                    for(int j = keys; j < borrowableBook.size();j++){
+                        if(keys<borrowableBook.size()-1) {
+                            borrowableBook.replace(keys,borrowableBook.get(++keys));
+                        }else if(keys == borrowableBook.size()-1){
+                            borrowableBook.remove(keys);
+                        }
+                        System.out.println(borrowableBook.get(j));
+                    }
+                }
+            }
         }
     }
 }

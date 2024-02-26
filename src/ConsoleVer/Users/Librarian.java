@@ -33,9 +33,10 @@ public class Librarian extends Users{
         return "";
     }
     public void activateUser(Member user,String login){
-        for (int i =0; i<=user.getUsers().size();i++){
+        for (int i =0; i<user.getUsers().size();i++){
             if(login.equals(user.getUsers().get(i).getLogin())){
                 user.getUsers().get(i).activate();
+                break;
             }
         }
     }
@@ -43,6 +44,7 @@ public class Librarian extends Users{
         for(int i =0; i<user.getUsers().size();i++){
             if(user.getUsers().get(i).getLogin().equals(login)){
                 user.getUsers().get(i).deactivate();
+                break;
             }
         }
     }

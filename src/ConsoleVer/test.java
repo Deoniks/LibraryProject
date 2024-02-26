@@ -16,7 +16,18 @@ public class test {
     private static String exitToLogin = "Exit Profile";
     private static String exitToProgram = "Exit Program";
     public static void main(String[] args) {
-        testAddItem();
+        testAddHashBook();
+    }
+
+    private static void testAddHashBook(){
+        Member m = new Member();
+        Book b = new Book();
+        m.setBorrowableBook(b.getBooks().get(1));
+        m.setBorrowableBook(b.getBooks().get(3));
+        m.setBorrowableBook(b.getBooks().get(5));
+        m.setBorrowableBook(b.getBooks().get(14));
+
+        m.returnBorrowableBook(1);
     }
 
     private static void testAddItem(){
@@ -37,7 +48,6 @@ public class test {
             System.err.println("This class is not a subclass of library item");
         }
     }
-
     private static void testStart(){
         String exit = exitToProgram;
         do {
