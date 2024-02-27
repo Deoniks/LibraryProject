@@ -15,7 +15,10 @@ public class Member extends Users{
     private String login;
     private String password;
     private LinkedList<Member> users = new LinkedList<>();
-    private HashMap<Integer,LinkedList<Object>>borrowableItem = new HashMap<>();
+    private LinkedList<Book>borrowableBook = new LinkedList<>();
+    private LinkedList<Integer>borrowableMagazine = new LinkedList<>();
+    private LinkedList<Integer>borrowableDvd = new LinkedList<>();
+    //private HashMap<Integer,Book>borrowableBoosk = new HashMap<>();
     private String authorization = "N";
     private boolean isActive = true;
 
@@ -88,10 +91,6 @@ public class Member extends Users{
         for (int i =0;i<m.length;i++){
             users.add(m[i]);
         }
-        Book book = new Book();
-        Magazine magazine = new Magazine();
-        Dvd dvd = new Dvd();
-
     }
 
     public boolean activate(){
@@ -115,6 +114,19 @@ public class Member extends Users{
             }
         }else {
             throw new UndefinedItemException();
+        }
+    }
+
+    public void setBorrowableBook(Book book){
+        borrowableBook.add(book);
+
+    }
+
+    public void returnBorrowableBook(int index){
+        for (int i = 0; i<borrowableBook.size();i++){
+            if(index == borrowableBook.get(i).getId()){
+                System.out.println(borrowableBook.get(i));
+            }
         }
     }
 }
