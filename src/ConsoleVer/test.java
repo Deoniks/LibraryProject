@@ -27,7 +27,7 @@ public class test {
         m.setBorrowableBook(b.getBooks().get(5));
         m.setBorrowableBook(b.getBooks().get(14));
 
-        m.returnBorrowableBook(1);
+        m.returnBorrowableBook(6);
     }
 
     private static void testAddItem(){
