@@ -15,7 +15,7 @@ public class run {
     private static boolean exitToLogin = false;
     private static boolean exitToProgram = false;
     private static int wUser = 0; //переменная для хранения выбранного пользователя
-    private static String lib = "Librarian"; // можно было бы использовать буливу переменную, но...
+    private static String lib = "Librarian"; // можно было бы использовать булеву переменную, но...
     private static String memb = "Member";// Не забыть переделать систему авторизации... Одна булева переменная, после выхода менять на false
     private static Book book = new Book();
 
