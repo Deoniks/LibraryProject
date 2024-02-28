@@ -1,9 +1,7 @@
-package ConsoleVer.LibraryItem;
+package ConsoleVer.Library;
 
-import ConsoleVer.LibraryItem.implem.PaperItem;
-import ConsoleVer.Users.Librarian;
+import ConsoleVer.Library.implem.PaperItem;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 

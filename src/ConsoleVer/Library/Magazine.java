@@ -1,6 +1,6 @@
-package ConsoleVer.LibraryItem;
+package ConsoleVer.Library;
 
-import ConsoleVer.LibraryItem.implem.PaperItem;
+import ConsoleVer.Library.implem.PaperItem;
 
 public class Magazine extends LibraryItem implements PaperItem {
     private long issueNumber;

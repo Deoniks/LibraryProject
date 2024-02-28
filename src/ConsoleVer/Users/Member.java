@@ -1,13 +1,10 @@
 package ConsoleVer.Users;
 
-import ConsoleVer.LibraryItem.Book;
-import ConsoleVer.LibraryItem.Dvd;
-import ConsoleVer.LibraryItem.Magazine;
-import ConsoleVer.LibraryItem.implem.BorrowableItem;
+import ConsoleVer.Library.Book;
+import ConsoleVer.Library.Dvd;
+import ConsoleVer.Library.Magazine;
 import ConsoleVer.MyException.UndefinedItemException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Member extends Users{
@@ -111,6 +108,10 @@ public class Member extends Users{
             System.out.println("True");
             if(object instanceof Book){
                 Book book = new Book();
+            }else if(object instanceof Magazine){
+                Magazine magazine = new Magazine();
+            }else if(object instanceof Dvd){
+                Dvd dvd = new Dvd();
             }
         }else {
             throw new UndefinedItemException();

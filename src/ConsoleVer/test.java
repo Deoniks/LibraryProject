@@ -1,13 +1,12 @@
 package ConsoleVer;
 
-import ConsoleVer.LibraryItem.Book;
-import ConsoleVer.LibraryItem.Dvd;
-import ConsoleVer.LibraryItem.Magazine;
+import ConsoleVer.Library.Book;
+import ConsoleVer.Library.Dvd;
+import ConsoleVer.Library.Magazine;
 import ConsoleVer.MyException.UndefinedItemException;
 import ConsoleVer.Users.Librarian;
 import ConsoleVer.Users.Member;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
