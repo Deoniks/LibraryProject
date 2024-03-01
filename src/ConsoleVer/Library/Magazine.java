@@ -181,8 +181,8 @@ public class Magazine extends LibraryItem implements PaperItem {
     }
 
     private static void Lib(){
-        int valBook = 31;
-        Magazine[] m = new Book[31];
+        int valMagazine = 31;
+        Magazine[] m = new Magazine[31];
         m[0] = new Magazine(1,"Discovery Hen Music",true,334,"January-April_24");
         m[1] = new Magazine(2,"Discovery About the cover",true,333,"September-December_23");
         m[2] = new Magazine(3,"Discovery Cyber Security Threats",true,332,"August_23");
@@ -214,7 +214,7 @@ public class Magazine extends LibraryItem implements PaperItem {
         m[28] = new Magazine(9,"WIRED",true,12024,"January_24");
         m[29] = new Magazine(9,"WIRED",true,11024,"December_23");
         m[30] = new Magazine(9,"WIRED",true,10024,"November_23");
-        for(int i =0;i<valBook;i++){
+        for(int i =0;i<valMagazine;i++){
             magazine.add(m[i]);
         }
     }
