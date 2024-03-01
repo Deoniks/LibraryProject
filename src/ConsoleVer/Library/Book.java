@@ -1,6 +1,7 @@
 package ConsoleVer.Library;
 
 import ConsoleVer.Library.implem.PaperItem;
+import ConsoleVer.Users.Member;
 
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -80,9 +81,8 @@ public class Book extends LibraryItem implements PaperItem {
             System.err.println("Not book's");
         }
     }
-
-    public void printBook(String user){ // Print All Book
-        if(user.equals("Member")){
+    public void printBook(boolean check){ // Print All Book
+        if(check == true){
             try {
                 for(int i = 0; i<books.size(); i++){
                     if(books.get(i).isAvailable()==true){
@@ -92,7 +92,7 @@ public class Book extends LibraryItem implements PaperItem {
         }catch (IndexOutOfBoundsException IOOBExce){
                 System.err.println("Not book's");
             }
-        } else if (user.equals("Librarian")) {
+        } else if (check == false) {
             try {
                 for(int i = 0; i<books.size(); i++){
                     System.out.println(books.get(i));

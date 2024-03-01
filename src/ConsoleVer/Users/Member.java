@@ -13,10 +13,11 @@ public class Member extends Users{
     private String password;
     private LinkedList<Member> users = new LinkedList<>();
     private LinkedList<Book>borrowableBook = new LinkedList<>();
-    private LinkedList<Integer>borrowableMagazine = new LinkedList<>();
-    private LinkedList<Integer>borrowableDvd = new LinkedList<>();
+    private LinkedList<Magazine>borrowableMagazine = new LinkedList<>();
+    private LinkedList<Dvd>borrowableDvd = new LinkedList<>();
     //private HashMap<Integer,Book>borrowableBoosk = new HashMap<>();
     private String authorization = "N";
+    private boolean isOnline = false;
     private boolean isActive = true;
 
     public Member(){
@@ -43,18 +44,30 @@ public class Member extends Users{
     public LinkedList<Member> getUsers(){
         return users;
     }
+
+    public LinkedList<Book>getBorrowableBook(){return borrowableBook;}
+    public LinkedList<Dvd>getBorrowableDvd(){return borrowableDvd;}
+    public LinkedList<Magazine>getBorrowableMagazine(){return borrowableMagazine;}
+
     public void setUsers(LinkedList<Member> users){
         this.users = users;
     }
 
-    public void checkAccountStatus(){
-        if(isActive!=false){
-            System.out.println("You account is active");
-        }else System.out.println("You account is deactive");
+    public void setAccountStatus(boolean isEnt){
+        isOnline = isEnt;
+        if(isOnline == false){
+            isOnline = false;
+        }else isOnline = true;
     }
-
-    public String getAuthorization(){
-        return authorization;
+    public boolean getAccountStatus(){
+        return isOnline;}
+    public String getAuthorization(String user){
+        for (int i=0;i<users.size();i++){
+            if(users.get(i).getLogin().equals(user)){
+                return authorization = users.get(i).getLogin();
+            }
+        }
+        return authorization = "N";
     }
     public void setAuthorization(String authorization){
         this.authorization = authorization;
@@ -63,7 +76,7 @@ public class Member extends Users{
         for(int i=0;i<getUsers().size();i++){ //Ввод чувствителен к регистру, т.к. это пользователь
             if(login.equals(getUsers().get(i).getLogin())){
                 if(password.equals(getUsers().get(i).getPassword())){
-                    this.authorization="Member";
+                    this.authorization=login;
                     return authorization;
                 }else {
                     authorization="N";
@@ -119,14 +132,21 @@ public class Member extends Users{
     }
 
     public void setBorrowableBook(Book book){
-        borrowableBook.add(book);
+        if(book.isAvailable() == true){
+            borrowableBook.add(book);
+        }else System.err.println("This don't borrowable book");
 
     }
-
+    public void returnBorrowableBook(){
+        for (int i = 0; i<borrowableBook.size();i++){
+            System.out.println(borrowableBook.get(i));
+        }
+    }
     public void returnBorrowableBook(int index){
         for (int i = 0; i<borrowableBook.size();i++){
             if(index == borrowableBook.get(i).getId()){
                 System.out.println(borrowableBook.get(i));
+                borrowableBook.remove(i);
             }
         }
     }

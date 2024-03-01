@@ -1,8 +1,6 @@
 package ConsoleVer;
 
-import ConsoleVer.Library.Book;
-import ConsoleVer.Library.Dvd;
-import ConsoleVer.Library.Magazine;
+import ConsoleVer.Library.*;
 import ConsoleVer.MyException.UndefinedItemException;
 import ConsoleVer.Users.Librarian;
 import ConsoleVer.Users.Member;
@@ -10,23 +8,38 @@ import ConsoleVer.Users.Member;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class test {
+public class test extends Functional{
     static Scanner scan = new Scanner(System.in);
     private static String exitToLogin = "Exit Profile";
     private static String exitToProgram = "Exit Program";
     public static void main(String[] args) {
-        testAddHashBook();
+        testReturnBook();
+    }
+
+    private static void testReturnBook(){
+
+        member.setBorrowableBook(book.getBooks().get(2));
+        Functional.returnMenu(1);
+    }
+    private static void testSetBorrowable(){
+        Book book = new Book();
+        Member member = new Member();
+        member.setBorrowableBook(book.getBooks().get(4));
+        member.setBorrowableBook(book.getBooks().get(25));
+        member.setBorrowableBook(book.getBooks().get(14));
+        member.setBorrowableBook(book.getBooks().get(5));
+        member.returnBorrowableBook(5);
     }
 
     private static void testAddHashBook(){
-        Member m = new Member();
-        Book b = new Book();
-        m.setBorrowableBook(b.getBooks().get(1));
-        m.setBorrowableBook(b.getBooks().get(3));
-        m.setBorrowableBook(b.getBooks().get(5));
-        m.setBorrowableBook(b.getBooks().get(14));
-
-        m.returnBorrowableBook(6);
+        LibraryAction lA = new LibraryAction();
+        Book book = new Book();
+        try {
+            lA.addItem(book);
+        }catch (UndefinedItemException ute){
+            System.err.println("There is no such element");
+        }
+        book.printBook();
     }
 
     private static void testAddItem(){
