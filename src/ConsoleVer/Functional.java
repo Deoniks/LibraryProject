@@ -3,6 +3,7 @@ package ConsoleVer;
 
 import ConsoleVer.Library.Book;
 import ConsoleVer.Library.LibraryAction;
+import ConsoleVer.Library.Magazine;
 import ConsoleVer.MyException.UndefinedItemException;
 import ConsoleVer.Users.Librarian;
 import ConsoleVer.Users.Member;
@@ -18,6 +19,7 @@ public class Functional {
     protected static boolean exitToLogin = false;
     protected static boolean exitToProgram = false;
     protected static Book book = new Book();
+    protected static Magazine magazine = new Magazine();
     private static Scanner scan = new Scanner(System.in);
 
     public static boolean exitMethod(){
@@ -88,6 +90,34 @@ public class Functional {
                     }
                 }while (entUid == book.getBooks().get(j).getId());
             }
+            case 2->{
+                magazine.printMagazine(member.getAccountStatus());
+                int entUid = 0;
+                int j = 0;
+                do {
+                    System.out.println("Please enter id book");
+                    while (!scan.hasNextInt()) {
+                        System.err.println("Please enter num");
+                    }
+                    entUid = scan.nextInt();
+                    for (int i = 0; i < magazine.getMagazine().size(); i++) {
+                        if (entUid == magazine.getMagazine().get(i).getId()) {
+                            if(magazine.getMagazine().get(i).isAvailable() == true){
+                                try {
+                                    member.setBorrowableMagazine(magazine.getMagazine().get(i));
+                                    libraryAction.borrowableItem(magazine,entUid);
+                                    System.out.println(magazine.getMagazine().get(i));
+                                }catch (UndefinedItemException e){
+                                    System.err.println("Not object");
+                                }
+                            }else member.setBorrowableMagazine(magazine.getMagazine().get(i));
+                            break;
+                        }else j=i;
+                    }if (entUid == 1){
+                        j++;
+                    }
+                }while (entUid == magazine.getMagazine().get(j).getId());
+            }
         }
     }
     public static void returnMenu(int index){
@@ -102,6 +132,17 @@ public class Functional {
                 }
                 int ind = scan.nextInt();
                 member.returnBorrowableBook(ind);
+            }
+            case 2->{
+                for(int i =0; i <member.getBorrowableBook().size();i++){
+                    System.out.println(member.getBorrowableBook().get(i));
+                }
+                System.out.println("Enter id for return book");
+                while (!scan.hasNextInt()){
+                    System.out.println("Please enter number");
+                }
+                int ind = scan.nextInt();
+                member.returnBorrowableMagazine(ind);
             }
         }
     }

@@ -73,8 +73,13 @@ public class run extends Functional{
                     Functional.borrawbleMenu(rent);
                 }
                 case 2 -> {
-                    Functional.returnMenu(1);
-                    System.out.println("Return...");
+                    System.out.println("1.Book\n2.Magazine\n3.DvD");
+                    while (!scan.hasNextInt()) {
+                        System.err.println("Please enter 1-3");
+                        scan.nextLine();
+                    }
+                    int rent = scan.nextInt();
+                    Functional.returnMenu(rent);
 
                 }
                 case 3 -> {

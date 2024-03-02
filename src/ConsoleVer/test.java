@@ -13,13 +13,22 @@ public class test extends Functional{
     private static String exitToLogin = "Exit Profile";
     private static String exitToProgram = "Exit Program";
     public static void main(String[] args) {
-        testReturnBook();
+        testAllReturnBook();
     }
 
-    private static void testReturnBook(){
+    private static void testAllReturnBook(){
 
         member.setBorrowableBook(book.getBooks().get(2));
-        Functional.returnMenu(1);
+        member.setBorrowableBook(book.getBooks().get(3));
+        member.setBorrowableBook(book.getBooks().get(4));
+        member.setBorrowableBook(book.getBooks().get(5));
+        for(int i = 0; i < member.getBorrowableBook().size(); i++){
+            System.out.println(member.getBorrowableBook().get(i));
+        }
+        member.returnAllBorrowableBook();
+        for(int i = 0; i < member.getBorrowableBook().size(); i++){
+            System.out.println(member.getBorrowableBook().get(i));
+        }
     }
     private static void testSetBorrowable(){
         Book book = new Book();
@@ -28,7 +37,7 @@ public class test extends Functional{
         member.setBorrowableBook(book.getBooks().get(25));
         member.setBorrowableBook(book.getBooks().get(14));
         member.setBorrowableBook(book.getBooks().get(5));
-        member.returnBorrowableBook(5);
+        member.returnAllBorrowableBook();
     }
 
     private static void testAddHashBook(){

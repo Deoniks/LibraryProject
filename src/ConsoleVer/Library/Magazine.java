@@ -11,7 +11,9 @@ public class Magazine extends LibraryItem implements PaperItem {
     private String issuer;
     private static LinkedList<Magazine> magazine = new LinkedList<>(); // Collection for save book's
 
-    public Magazine(){}
+    public Magazine(){
+        Lib();
+    }
     public Magazine(int id, String name, boolean isAvailable, long issueNumber, String issuer){
         super(id, name, isAvailable);
         this.issueNumber = issueNumber;
@@ -206,17 +208,24 @@ public class Magazine extends LibraryItem implements PaperItem {
         m[20] = new Magazine(21,"Forbes KZ",true,146,"October_23");
         m[21] = new Magazine(22,"Forbes KZ",true,145,"September_23");
         m[22] = new Magazine(23,"Forbes KZ",true,144,"August_23");
-        m[23] = new Magazine(9,"Мир фантастики кузница миров",true,243,"February_24");
-        m[24] = new Magazine(9,"Мир фантастики ожидания 2024",true,242,"January_24");
-        m[25] = new Magazine(9,"Мир фантастики Rogue trader",true,241,"December_23");
-        m[26] = new Magazine(9,"Мир фантастики Берсерк История лара",true,240,"November_23");
-        m[27] = new Magazine(9,"WIRED",true,13024,"February_24");
-        m[28] = new Magazine(9,"WIRED",true,12024,"January_24");
-        m[29] = new Magazine(9,"WIRED",true,11024,"December_23");
-        m[30] = new Magazine(9,"WIRED",true,10024,"November_23");
+        m[23] = new Magazine(24,"Мир фантастики кузница миров",true,243,"February_24");
+        m[24] = new Magazine(25,"Мир фантастики ожидания 2024",true,242,"January_24");
+        m[25] = new Magazine(26,"Мир фантастики Rogue trader",true,241,"December_23");
+        m[26] = new Magazine(27,"Мир фантастики Берсерк История лара",true,240,"November_23");
+        m[27] = new Magazine(28,"WIRED",true,13024,"February_24");
+        m[28] = new Magazine(29,"WIRED",true,12024,"January_24");
+        m[29] = new Magazine(39,"WIRED",true,11024,"December_23");
+        m[30] = new Magazine(31,"WIRED",true,10024,"November_23");
         for(int i =0;i<valMagazine;i++){
             magazine.add(m[i]);
         }
+    }
+
+    @Override
+    public String toString(){
+        return getId()+ " "
+                +getName() + " "+ getIssuer()+ " "
+                + getIssueNumber();
     }
 
 }

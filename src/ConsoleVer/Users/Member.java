@@ -129,17 +129,22 @@ public class Member extends Users{
         }else {
             throw new UndefinedItemException();
         }
-    }
+    } // test Method
 
     public void setBorrowableBook(Book book){
         if(book.isAvailable() == true){
             borrowableBook.add(book);
         }else System.err.println("This don't borrowable book");
+    }
+    public void setBorrowableMagazine(Magazine magazine){
+        if(magazine.isAvailable() == true){
+            borrowableMagazine.add(magazine);
+        }else System.err.println("This don't borrowable book");
 
     }
-    public void returnBorrowableBook(){
-        for (int i = 0; i<borrowableBook.size();i++){
-            System.out.println(borrowableBook.get(i));
+    public void returnAllBorrowableBook(){
+        for (int i = borrowableBook.size()-1; i!=-1;i--){
+            borrowableBook.remove(i);
         }
     }
     public void returnBorrowableBook(int index){
@@ -147,6 +152,14 @@ public class Member extends Users{
             if(index == borrowableBook.get(i).getId()){
                 System.out.println(borrowableBook.get(i));
                 borrowableBook.remove(i);
+            }
+        }
+    }
+    public void returnBorrowableMagazine(int index){
+        for (int i = 0; i<borrowableMagazine.size();i++){
+            if(index == borrowableMagazine.get(i).getId()){
+                System.out.println(borrowableMagazine.get(i));
+                borrowableMagazine.remove(i);
             }
         }
     }
