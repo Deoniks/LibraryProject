@@ -1,33 +1,54 @@
 package ConsoleVer;
 
-import ConsoleVer.LibraryItem.Book;
-import ConsoleVer.LibraryItem.Dvd;
-import ConsoleVer.LibraryItem.Magazine;
+import ConsoleVer.Library.*;
 import ConsoleVer.MyException.UndefinedItemException;
 import ConsoleVer.Users.Librarian;
 import ConsoleVer.Users.Member;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class test {
+public class test extends Functional{
     static Scanner scan = new Scanner(System.in);
     private static String exitToLogin = "Exit Profile";
     private static String exitToProgram = "Exit Program";
     public static void main(String[] args) {
-        testAddHashBook();
+        testAllReturnBook();
+    }
+
+    private static void testAllReturnBook(){
+
+        member.setBorrowableBook(book.getBooks().get(2));
+        member.setBorrowableBook(book.getBooks().get(3));
+        member.setBorrowableBook(book.getBooks().get(4));
+        member.setBorrowableBook(book.getBooks().get(5));
+        for(int i = 0; i < member.getBorrowableBook().size(); i++){
+            System.out.println(member.getBorrowableBook().get(i));
+        }
+        member.returnAllBorrowableBook();
+        for(int i = 0; i < member.getBorrowableBook().size(); i++){
+            System.out.println(member.getBorrowableBook().get(i));
+        }
+    }
+    private static void testSetBorrowable(){
+        Book book = new Book();
+        Member member = new Member();
+        member.setBorrowableBook(book.getBooks().get(4));
+        member.setBorrowableBook(book.getBooks().get(25));
+        member.setBorrowableBook(book.getBooks().get(14));
+        member.setBorrowableBook(book.getBooks().get(5));
+        member.returnAllBorrowableBook();
     }
 
     private static void testAddHashBook(){
-        Member m = new Member();
-        Book b = new Book();
-        m.setBorrowableBook(b.getBooks().get(1));
-        m.setBorrowableBook(b.getBooks().get(3));
-        m.setBorrowableBook(b.getBooks().get(5));
-        m.setBorrowableBook(b.getBooks().get(14));
-
-        m.returnBorrowableBook(6);
+        LibraryAction lA = new LibraryAction();
+        Book book = new Book();
+        try {
+            lA.addItem(book);
+        }catch (UndefinedItemException ute){
+            System.err.println("There is no such element");
+        }
+        book.printBook();
     }
 
     private static void testAddItem(){

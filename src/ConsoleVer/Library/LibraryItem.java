@@ -1,4 +1,4 @@
-package ConsoleVer.LibraryItem;
+package ConsoleVer.Library;
 
 public abstract class LibraryItem {
     private int id;
@@ -12,12 +12,6 @@ public abstract class LibraryItem {
         this.isAvailable = isAvailable;
     }
 
-    public void addBookUser(){
-
-    }
-
-    public void displayDetails(){
-    }
 
     public int getId() {
         return id;
@@ -41,5 +35,9 @@ public abstract class LibraryItem {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public void displayDetails(){
+        System.out.printf("ID: %d, Name: %s, isAvailable: %s\n", id, name, isAvailable);
     }
 }
