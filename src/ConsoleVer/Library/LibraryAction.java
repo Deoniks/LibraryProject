@@ -9,8 +9,17 @@ import java.util.Scanner;
 public class LibraryAction {
     private Scanner scan = new Scanner(System.in);
 
+    public void addUser(Member m){
+        System.out.println("Enter login");
+        String login = scan.nextLine();
+        System.out.println("Enter password");
+        String pass = scan.nextLine();
+        Member newMember = new Member(login,pass,true);
+        m.getUsers().add(newMember);
+    }
     public void addItem(Object object) throws UndefinedItemException{
-        if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd) {
+        if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd)
+        {
             if(object instanceof Book){
                 int inId = 0;
                 System.out.println("Enter Author");
@@ -33,10 +42,47 @@ public class LibraryAction {
                 Book b = new Book(inAuthor,inTitle,inIsbn,inId,inType,true);
                 ((Book) object).getBooks().add(b);
             }
+            else if (object instanceof Magazine) {
+                System.out.println("Enter name");
+                String inName = scan.nextLine();
+                System.out.println("Enter issue Number");
+                long issueNum = scan.nextLong();
+                System.out.println("Enter id");
+                while (!scan.hasNextInt()) {
+                    System.out.println("Please input integer number");
+                    scan.nextLine();
+                }
+                int inId = scan.nextInt();
+                scan.nextLine();
+                System.out.println("Enter issuer");
+                String inIssuer = scan.nextLine();
+                Magazine m = new Magazine(inId, inName, true, issueNum, inIssuer);
+                ((Magazine) object).getMagazine().add(m);
+            }
+            else if (object instanceof Dvd) {
+                System.out.println("Enter name");
+                String inName = scan.nextLine();
+                System.out.println("Enter id");
+                while (!scan.hasNextInt()) {
+                    System.out.println("Please input integer number");
+                    scan.nextLine();
+                }
+                int inId = scan.nextInt();
+                scan.nextLine();
+                System.out.println("Enter run time");
+                while (!scan.hasNextInt()) {
+                    System.out.println("Please input integer number");
+                    scan.nextLine();
+                }
+                int runTime = scan.nextInt();
+                scan.nextLine();
+                Dvd d = new Dvd(inId, inName, true, runTime);
+                ((Dvd) object).getDvd().add(d);
+            }
         }else throw new UndefinedItemException();
     }
     public void addItem(Object object, int val) throws UndefinedItemException{ // add n- value item...
-        if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd) {
+        if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd){
             if(object instanceof Book){
                 for(int i =0;i<=val;i++) {
                     int inId = 0;
@@ -61,9 +107,51 @@ public class LibraryAction {
                     ((Book) object).getBooks().add(b);
                 }
             }
-        }else throw new UndefinedItemException();
+            else if (object instanceof Magazine){
+                for(int i =0;i<=val;i++) {
+                    System.out.println("Enter name");
+                    String inName = scan.nextLine();
+                    System.out.println("Enter issue Number");
+                    long issueNum = scan.nextLong();
+                    System.out.println("Enter id");
+                    while (!scan.hasNextInt()) {
+                        System.out.println("Please input integer number");
+                        scan.nextLine();
+                    }
+                    int inId = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Enter issuer");
+                    String inIssuer = scan.nextLine();
+                    Magazine m = new Magazine(inId, inName, true, issueNum, inIssuer);
+                    ((Magazine) object).getMagazine().add(m);
+                }
+            }
+            else if(object instanceof Dvd){
+                for(int i =0;i<=val;i++) {
+                    System.out.println("Enter name");
+                    String inName = scan.nextLine();
+                    System.out.println("Enter id");
+                    while (!scan.hasNextInt()) {
+                        System.out.println("Please input integer number");
+                        scan.nextLine();
+                    }
+                    int inId = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Enter run time");
+                    while (!scan.hasNextInt()) {
+                        System.out.println("Please input integer number");
+                        scan.nextLine();
+                    }
+                    int runTime = scan.nextInt();
+                    scan.nextLine();
+                    Dvd d = new Dvd(inId, inName, true, runTime);
+                    ((Dvd) object).getDvd().add(d);
+                }
+            }
+        }
+        else throw new UndefinedItemException();
     }
-    public void printItemUser(Object object) throws UndefinedItemException{ // Print All Book
+    public void printItemUser(Object object) throws UndefinedItemException{ // Print All Item users
         if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd){
             if(object instanceof Book){
                 try {
@@ -77,10 +165,26 @@ public class LibraryAction {
                 }
             }
             else if (object instanceof Magazine) {
-                System.out.println("Magazine");
+                try {
+                    for(int i = 0; i<((Magazine) object).getMagazine().size(); i++){
+                        if(((Magazine) object).getMagazine().get(i).isAvailable() == true){
+                            System.out.println(((Magazine) object).getMagazine().get(i));
+                        }
+                    }
+                }catch (IndexOutOfBoundsException IOOBExce){
+                    System.err.println("Not magazine's");
+                }
             }
             else if (object instanceof Dvd) {
-                System.out.println("DvD");
+                try {
+                    for(int i = 0; i<((Dvd) object).getDvd().size(); i++){
+                        if(((Dvd) object).getDvd().get(i).isAvailable() == true){
+                            System.out.println(((Dvd) object).getDvd().get(i));
+                        }
+                    }
+                }catch (IndexOutOfBoundsException IOOBExce){
+                    System.err.println("Not dvd's");
+                }
             }
         }
         else {
@@ -98,7 +202,12 @@ public class LibraryAction {
                 }
             }
             else if (object instanceof Magazine) {
-                System.out.println("Magazine");
+                for(int i = 0; i<((Magazine) object).getMagazine().size();i++){
+                    if(id == ((Magazine) object).getMagazine().get(i).getId()){
+                        ((Magazine) object).getMagazine().get(i).setAvailable(false);
+                        break;
+                    }
+                }
             }
             else if (object instanceof Dvd){
                 System.out.println("Dvd");
@@ -224,7 +333,30 @@ public class LibraryAction {
     }
     public void returnItem(Object object, int id) throws UndefinedItemException{
         if(object instanceof Book || object instanceof Magazine || object instanceof Dvd){
-
+            if(object instanceof Book){
+                for(int i =0; i<((Book)object).getBooks().size();i++) {
+                    if (((Book) object).getBooks().get(i).getId() == id) {
+                        ((Book)object).getBooks().remove(i);
+                        break;
+                    }
+                }
+            }
+            if(object instanceof Magazine){
+                for(int i =0; i<((Magazine)object).getMagazine().size();i++) {
+                    if (((Magazine) object).getMagazine().get(i).getId() == id) {
+                        ((Magazine)object).getMagazine().remove(i);
+                        break;
+                    }
+                }
+            }
+            if(object instanceof Dvd){
+                for(int i =0; i<((Dvd)object).getDvd().size();i++) {
+                    if (((Dvd) object).getDvd().get(i).getId() == id) {
+                        ((Dvd)object).getDvd().remove(i);
+                        break;
+                    }
+                }
+            }
         }
         else {
             throw new UndefinedItemException();

@@ -102,6 +102,9 @@ public class Book extends LibraryItem implements PaperItem {
             }
         }
     }
+    public void deleteBook(int ind){
+        books.remove(ind);
+    }
     public void printBook(int val){ // Print n- Book
         try {
             System.out.println(books.get(val));

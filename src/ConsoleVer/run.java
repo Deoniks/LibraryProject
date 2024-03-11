@@ -2,6 +2,7 @@ package ConsoleVer;
 
 import ConsoleVer.Library.Book;
 import ConsoleVer.Library.LibraryAction;
+import ConsoleVer.MyException.UndefinedItemException;
 
 import java.util.Scanner;
 
@@ -54,43 +55,65 @@ public class run extends Functional{
     }
     public static void menuMember() {
         while (exitToLogin == false) {
-            member.setAccountStatus(true);
-            System.out.println("\n_____________________________________________________\n");
-            System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
-            while (!scan.hasNextInt()) {
-                System.err.println("Please enter 1-4");
-                scan.nextLine();
-            }
-            wUser = scan.nextInt();
-            switch (wUser) {
-                case 1 -> {
-                    System.out.println("1.Book\n2.Magazine\n3.DvD");
-                    while (!scan.hasNextInt()) {
-                        System.err.println("Please enter 1-3");
-                        scan.nextLine();
-                    }
-                    int rent = scan.nextInt();
-                    Functional.borrawbleMenu(rent);
+            isOnline();
+            if(member.isAct() == true){
+                System.out.println("\n_____________________________________________________\n");
+                System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
+                while (!scan.hasNextInt()) {
+                    System.err.println("Please enter 1-4");
+                    scan.nextLine();
                 }
-                case 2 -> {
-                    System.out.println("1.Book\n2.Magazine\n3.DvD");
-                    while (!scan.hasNextInt()) {
-                        System.err.println("Please enter 1-3");
-                        scan.nextLine();
+                wUser = scan.nextInt();
+                switch (wUser) {
+                    case 1 -> {
+                        System.out.println("1.Book\n2.Magazine\n3.DvD");
+                        while (!scan.hasNextInt()) {
+                            System.err.println("Please enter 1-3");
+                            scan.nextLine();
+                        }
+                        int rent = scan.nextInt();
+                        Functional.borrawbleMenu(rent);
                     }
-                    int rent = scan.nextInt();
-                    Functional.returnMenu(rent);
+                    case 2 -> {
+                        System.out.println("1.Book\n2.Magazine\n3.DvD\n4.All");
+                        while (!scan.hasNextInt()) {
+                            System.err.println("Please enter 1-3");
+                            scan.nextLine();
+                        }
+                        int rent = scan.nextInt();
+                        Functional.returnMenu(rent);
 
+                    }
+                    case 3 -> {
+                        System.out.println("Check Profile");
+                        if(member.isAct() == true){
+                            System.out.println("Active");
+                        }else System.out.println("False");
+                    }
+                    case 4 -> {
+                        System.out.println("Exit:\n1.Profile\n2.Program");
+                        exitMethod();
+                    }
                 }
-                case 3 -> {
-                    System.out.println("Check Profile");
-                    if(member.test() == true){
-                        System.out.println("Active");
-                    }else System.out.println("False");
+            }else {
+                System.out.println("\n_____________________________________________________\n");
+                System.out.println("1.Check Profile\n2.Exit");
+                while (!scan.hasNextInt()) {
+                    System.err.println("Please enter 1-4");
+                    scan.nextLine();
                 }
-                case 4 -> {
-                    System.out.println("Exit:\n1.Profile\n2.Program");
-                    exitMethod();
+                wUser = scan.nextInt();
+                switch (wUser) {
+                    case 1 -> {
+                        System.out.println("Check Profile");
+                        if(member.isAct() == true){
+                            System.out.println("Active");
+                        }else System.out.println("False");
+                    }
+                    case 2 -> {
+                        System.out.println("Exit:\n1.Profile\n2.Program");
+                        exitMethod();
+                    }
                 }
             }
         }
@@ -98,7 +121,7 @@ public class run extends Functional{
     public static void menuLibrarian() {
         while (exitToLogin == false){
             System.out.println("\n_____________________________________________________\n");
-            System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Exit");
+            System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Add/Delete\n5.Exit");
             while (!scan.hasNextInt()) {
                 System.err.println("Please enter 1-4");
                 scan.nextLine();
@@ -106,18 +129,28 @@ public class run extends Functional{
             wUser = scan.nextInt();
             switch (wUser) {
                 case 1 -> {
-                    System.out.println("Rent");
-                    Book b = new Book();
-                    b.printBook();
+                    printAllItem();
                 }
                 case 2 -> {
-                    System.out.println("1.Activate Profile\n2.Deactivate Profile");
                     menuActivateOrDeactivate();
                 }
                 case 3 -> {
                     System.out.println("Check Profile");
                 }
                 case 4 -> {
+                    System.out.println("1.Add\n2.Delete");
+                    while (!scan.hasNextInt()){
+                        System.err.println("Pls enter num");
+                        scan.nextLine();
+                    }
+                    int scope = scan.nextInt();
+                    try {
+                        addDeleteMenu(scope);
+                    } catch (UndefinedItemException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case 5 -> {
                     System.out.println("Exit:\n1.Profile\n2.Program");
                     exitMethod();
                 }

@@ -16,6 +16,10 @@ public class test extends Functional{
         testAllReturnBook();
     }
 
+
+    private static void testMemberItem(){
+        Member m = new Member();
+    }
     private static void testAllReturnBook(){
 
         member.setBorrowableBook(book.getBooks().get(2));
@@ -25,19 +29,10 @@ public class test extends Functional{
         for(int i = 0; i < member.getBorrowableBook().size(); i++){
             System.out.println(member.getBorrowableBook().get(i));
         }
-        member.returnAllBorrowableBook();
+        //member.returnAllBorrowableBook();
         for(int i = 0; i < member.getBorrowableBook().size(); i++){
             System.out.println(member.getBorrowableBook().get(i));
         }
-    }
-    private static void testSetBorrowable(){
-        Book book = new Book();
-        Member member = new Member();
-        member.setBorrowableBook(book.getBooks().get(4));
-        member.setBorrowableBook(book.getBooks().get(25));
-        member.setBorrowableBook(book.getBooks().get(14));
-        member.setBorrowableBook(book.getBooks().get(5));
-        member.returnAllBorrowableBook();
     }
 
     private static void testAddHashBook(){
@@ -63,7 +58,7 @@ public class test extends Functional{
         Librarian l = new Librarian();
         Member m = new Member();
         try {
-            m.setBorrowableItem(bo,2);
+            m.setBorrowableItem(bo);
             System.out.println();
         }catch (UndefinedItemException e){
             System.err.println("This class is not a subclass of library item");

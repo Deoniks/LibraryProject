@@ -41,6 +41,9 @@ public class Magazine extends LibraryItem implements PaperItem {
         Magazine m = new Magazine(inId, inName,true,issueNum,inIssuer);
         magazine.add(m);
     }
+    public void deleteMagazine(int ind){
+        magazine.remove(ind);
+    }
     public void addMagazine(int val){ // add n-book
         for(int i =0;i<=val;i++){
             System.out.println("Enter name");
