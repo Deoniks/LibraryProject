@@ -58,7 +58,7 @@ public class test extends Functional{
         Librarian l = new Librarian();
         Member m = new Member();
         try {
-            m.setBorrowableItem(bo);
+            m.setBorrowableItem(m,bo);
             System.out.println();
         }catch (UndefinedItemException e){
             System.err.println("This class is not a subclass of library item");

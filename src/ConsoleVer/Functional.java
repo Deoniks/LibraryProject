@@ -74,21 +74,28 @@ public class Functional {
                     System.out.println("Please enter id book");
                     while (!scan.hasNextInt()) {
                         System.err.println("Please enter num");
+                        scan.nextLine();
                     }
                     entUid = scan.nextInt();
                     for (int i = 0; i < book.getBooks().size(); i++) {
                         if (entUid == book.getBooks().get(i).getId()) {
                             if(book.getBooks().get(i).isAvailable() == true){
                                 try {
-                                    member.setBorrowableItem(book.getBooks().get(i));
-                                    libraryAction.borrowableItem(book,entUid);
-                                    System.out.println(book.getBooks().get(i));
+                                    for(int z=0;z<member.getUsers().size();i++) {
+                                        if(member.getUsers().get(z).getAccountStatus() == true) {
+                                            member.getUsers().get(z).setBorrowableItem(member,book.getBooks().get(i));
+                                            libraryAction.borrowableItem(book, entUid);
+                                            //System.out.println("add: " + member.getUsers().get(z).getBorrowableBook());
+                                            System.out.println(book.getBooks().get(i));
+                                            break;
+                                        }
+                                    }
                                 }catch (UndefinedItemException e){
                                     System.err.println("Not object");
                                 }
                             }else {
                                 try{
-                                    member.setBorrowableItem(book.getBooks().get(i));
+                                    member.setBorrowableItem(member, book.getBooks().get(i));
                                 }catch (UndefinedItemException e){
                                     System.err.println("Not object");
                                 }
@@ -114,7 +121,7 @@ public class Functional {
                         if (entUid == magazine.getMagazine().get(i).getId()) {
                             if(magazine.getMagazine().get(i).isAvailable() == true){
                                 try {
-                                    member.setBorrowableItem(magazine.getMagazine().get(i));
+                                    member.setBorrowableItem(member,magazine.getMagazine().get(i));
                                     libraryAction.borrowableItem(magazine,entUid);
                                     System.out.println(magazine.getMagazine().get(i));
                                 }catch (UndefinedItemException e){
@@ -122,7 +129,7 @@ public class Functional {
                                 }
                             }else {
                                 try{
-                                    member.setBorrowableItem(magazine.getMagazine().get(i));
+                                    member.setBorrowableItem(member, magazine.getMagazine().get(i));
                                 }catch (UndefinedItemException e){
                                     System.err.println("Not object");
                                 }
@@ -148,7 +155,7 @@ public class Functional {
                         if (entUid == dvd.getDvd().get(i).getId()) {
                             if(dvd.getDvd().get(i).isAvailable() == true){
                                 try {
-                                    member.setBorrowableItem(dvd.getDvd().get(i));
+                                    member.setBorrowableItem(member,dvd.getDvd().get(i));
                                     libraryAction.borrowableItem(dvd,entUid);
                                     System.out.println(dvd.getDvd().get(i));
                                 }catch (UndefinedItemException e){
@@ -156,7 +163,7 @@ public class Functional {
                                 }
                             }else {
                                 try{
-                                    member.setBorrowableItem(dvd.getDvd().get(i));
+                                    member.setBorrowableItem(member, dvd.getDvd().get(i));
                                 }catch (UndefinedItemException e){
                                     System.err.println("Not object");
                                 }
@@ -173,15 +180,19 @@ public class Functional {
     public static void returnMenu(int index){
         switch (index){
             case 1->{
-                for(int i =0; i <member.getBorrowableBook().size();i++){
-                    System.out.println(member.getBorrowableBook().get(i));
+                for(int i =0; i< member.getUsers().size();i++) {
+                    if(member.getUsers().get(i).getAccountStatus() == true) {
+                        for (int j = 0; j < member.getUsers().get(i).getBorrowableBook().size(); j++) {
+                            System.out.println(member.getUsers().get(i).getBorrowableBook().get(j));
+                        }
+                    }
                 }
                 System.out.println("Enter id for return book");
                 while (!scan.hasNextInt()){
                     System.out.println("Please enter number");
                 }
                 int ind = scan.nextInt();
-                member.returnBorrowableBook(ind);
+                member.returnBorrowableBook(member,ind);
             }
             case 2->{
                 for(int i =0; i <member.getBorrowableMagazine().size();i++){
@@ -349,6 +360,7 @@ public class Functional {
         for(int i =0;i<member.getUsers().size();i++){
             if(member.getAuthorization().equals(member.getUsers().get(i).getLogin())){
                 member.getUsers().get(i).setAccountStatus(true);
+                break;
             }
         }
     }

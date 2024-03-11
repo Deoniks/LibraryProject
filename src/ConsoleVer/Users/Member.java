@@ -123,14 +123,14 @@ public class Member extends Users{
         }return false;
     }// проверка профиля пользователя
 
-    public void setBorrowableItem(Object object) throws UndefinedItemException {
+    public void setBorrowableItem(Member m, Object object) throws UndefinedItemException {
         if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd) {
-            System.out.println("True");
             if(object instanceof Book){
                 if(((Book) object).isAvailable() == true){
-                    for (int i=0;i<users.size();i++){
-                        if(users.get(i).isOnline==true){
-                            borrowableBook.add(((Book) object));
+                    for (int i=0;i<m.getUsers().size();i++){
+                        if(m.getUsers().get(i).isOnline==true){
+                            m.getUsers().get(i).borrowableBook.add(((Book) object));
+                            break;
                         }
                     }
 
@@ -175,12 +175,16 @@ public class Member extends Users{
             borrowableDvd.remove(i);
         }
     } // Возврат всех предметов
-    public void returnBorrowableBook(int index){
-        for (int i = 0; i<borrowableBook.size();i++){
-            if(users.get(i).getAccountStatus() == true) {
-                if (index == borrowableBook.get(i).getId()) {
-                    System.out.println(borrowableBook.get(i));
-                    borrowableBook.remove(i);
+    public void returnBorrowableBook(Member m, int index){
+        for (int i = 0; i<m.getUsers().size();i++){
+            if(m.getUsers().get(i).getAccountStatus() == true) {
+                for(int j=0;j<m.getUsers().get(i).borrowableBook.size();j++) {
+                    if (m.getUsers().get(i).isOnline == true) {
+                        if (index == m.getUsers().get(i).borrowableBook.get(j).getId()) {
+                            System.out.println(m.getUsers().get(i).borrowableBook.get(j));
+                            m.getUsers().get(i).borrowableBook.remove(j);
+                        }
+                    }
                 }
             }
         }
