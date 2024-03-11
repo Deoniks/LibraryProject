@@ -14,7 +14,8 @@ public class LibraryAction {
         String login = scan.nextLine();
         System.out.println("Enter password");
         String pass = scan.nextLine();
-        Member newMember = new Member(login,pass,true);
+        String rating = scan.nextLine();
+        Member newMember = new Member(login,pass,true,rating);
         m.getUsers().add(newMember);
     }
     public void addItem(Object object) throws UndefinedItemException{
