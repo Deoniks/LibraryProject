@@ -211,7 +211,12 @@ public class LibraryAction {
                 }
             }
             else if (object instanceof Dvd){
-                System.out.println("Dvd");
+                for(int i = 0; i<((Dvd) object).getDvd().size();i++){
+                    if(id == ((Dvd) object).getDvd().get(i).getId()){
+                        ((Dvd) object).getDvd().get(i).setAvailable(false);
+                        break;
+                    }
+                }
             }
         }
         else {
@@ -337,7 +342,7 @@ public class LibraryAction {
             if(object instanceof Book){
                 for(int i =0; i<((Book)object).getBooks().size();i++) {
                     if (((Book) object).getBooks().get(i).getId() == id) {
-                        ((Book)object).getBooks().remove(i);
+                        ((Book)object).getBooks().get(i).setAvailable(true);
                         break;
                     }
                 }
@@ -345,7 +350,7 @@ public class LibraryAction {
             if(object instanceof Magazine){
                 for(int i =0; i<((Magazine)object).getMagazine().size();i++) {
                     if (((Magazine) object).getMagazine().get(i).getId() == id) {
-                        ((Magazine)object).getMagazine().remove(i);
+                        ((Magazine)object).getMagazine().get(i).setAvailable(true);
                         break;
                     }
                 }
@@ -353,7 +358,7 @@ public class LibraryAction {
             if(object instanceof Dvd){
                 for(int i =0; i<((Dvd)object).getDvd().size();i++) {
                     if (((Dvd) object).getDvd().get(i).getId() == id) {
-                        ((Dvd)object).getDvd().remove(i);
+                        ((Dvd)object).getDvd().get(i).setAvailable(true);
                         break;
                     }
                 }

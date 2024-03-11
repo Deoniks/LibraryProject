@@ -85,7 +85,6 @@ public class Functional {
                                         if(member.getUsers().get(z).getAccountStatus() == true) {
                                             member.getUsers().get(z).setBorrowableItem(member,book.getBooks().get(i));
                                             libraryAction.borrowableItem(book, entUid);
-                                            //System.out.println("add: " + member.getUsers().get(z).getBorrowableBook());
                                             System.out.println(book.getBooks().get(i));
                                             break;
                                         }
@@ -193,6 +192,7 @@ public class Functional {
                 }
                 int ind = scan.nextInt();
                 member.returnBorrowableBook(member,ind);
+                libraryAction.returnItem(book,ind);
             }
             case 2->{
                 for(int i =0; i <member.getBorrowableMagazine().size();i++){
@@ -204,6 +204,7 @@ public class Functional {
                 }
                 int ind = scan.nextInt();
                 member.returnBorrowableMagazine(ind);
+                libraryAction.returnItem(magazine,ind);
             }
             case 3->{
                 for(int i =0; i <member.getBorrowableDvd().size();i++){
@@ -215,6 +216,7 @@ public class Functional {
                 }
                 int ind = scan.nextInt();
                 member.returnBorrowableDvd(ind);
+                libraryAction.returnItem(dvd,ind);
             }
             case 4->{
                 member.returnAllBorrowableItem();
