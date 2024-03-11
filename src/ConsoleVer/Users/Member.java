@@ -10,6 +10,7 @@ import java.util.LinkedList;
 public class Member extends Users{
     private String login;
     private String password;
+    private String rating;
     private LinkedList<Member> users = new LinkedList<>();
     private LinkedList<Book>borrowableBook = new LinkedList<>();
     private LinkedList<Magazine>borrowableMagazine = new LinkedList<>();
@@ -23,10 +24,11 @@ public class Member extends Users{
         Users();
 
     } //To work with requests
-    public Member(String login,String password, boolean isActive){
+    public Member(String login,String password, boolean isActive, String rating){
         this.login = login;
         this.password = password;
         this.isActive = isActive;
+        this.rating = rating;
     } //добавить каждому пользователю индивидуальный список предметов
 
     public String getLogin() {
@@ -41,6 +43,14 @@ public class Member extends Users{
     public void setPassword(String password) {
         this.password = password;
     } // Установить новый пароль пользователю(для будущего апдейта:))
+
+    public String getRating() { //Для уточнения рейтинга пользователя
+        return rating;
+    }
+    public void setRating(String rating) { //Для смены рейтинга пользователя
+        this.rating = rating;
+    }
+
     public LinkedList<Member> getUsers(){
         return users;
     }
@@ -88,11 +98,11 @@ public class Member extends Users{
     private void Users(){
         int val = 5;
         Member[]m = new Member[val];
-        m[0] = new Member("user","user",true);
-        m[1] = new Member("Berek","12345q",true);
-        m[2] = new Member("Luffy","Aa1234aA",true);
-        m[3] = new Member("Member","mEMBER",true);
-        m[4] = new Member("Ali","0sd3a21l",true);
+        m[0] = new Member("user","user",true,"gold");
+        m[1] = new Member("Berek","12345q",true,"silver");
+        m[2] = new Member("Luffy","Aa1234aA",true,"bronze");
+        m[3] = new Member("Member","mEMBER",true,"bronze");
+        m[4] = new Member("Ali","0sd3a21l",true,"bronze");
         for (int i =0;i<m.length;i++){
             users.add(m[i]);
         }
