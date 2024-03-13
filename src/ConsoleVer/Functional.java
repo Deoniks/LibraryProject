@@ -64,115 +64,95 @@ public class Functional {
         }
         return "n";
     }
-    public static void borrawbleMenu(int index){
+    public static void borrawbleMenu(int index) throws UndefinedItemException{
         switch (index){
             case 1->{
                 book.printBook(member.getAccountStatus());
                 int entUid = 0;
-                int j = 0;
-                do {
-                    System.out.println("Please enter id book");
-                    while (!scan.hasNextInt()) {
-                        System.err.println("Please enter num");
-                        scan.nextLine();
-                    }
-                    entUid = scan.nextInt();
-                    for (int i = 0; i < book.getBooks().size(); i++) {
-                        if (entUid == book.getBooks().get(i).getId()) {
-                            if(book.getBooks().get(i).isAvailable() == true){
-                                try {
-                                    for(int z=0;z<member.getUsers().size();i++) {
-                                        if(member.getUsers().get(z).getAccountStatus() == true) {
-                                            member.getUsers().get(z).setBorrowableItem(member,book.getBooks().get(i));
+                try{
+                    do {
+                        System.out.println("Please enter id book");
+                        while (!scan.hasNextInt()) {
+                            System.err.println("Please enter num");
+                            scan.nextLine();
+                        }
+                        entUid = scan.nextInt();
+                        if (libraryAction.checkIdItem(book, entUid)) {
+                                    for (int z = 0; z < member.getUsers().size(); z++) {
+                                        if (member.getUsers().get(z).getAccountStatus()) {
+                                            entUid = libraryAction.findIdItem(book,entUid);
+                                            member.getUsers().get(z).setBorrowableItem(member, book.getBooks().get(entUid));
                                             libraryAction.borrowableItem(book, entUid);
-                                            System.out.println(book.getBooks().get(i));
+                                            System.out.println(book.getBooks().get(entUid));
                                             break;
                                         }
                                     }
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
-                                }
-                            }else {
-                                try{
-                                    member.setBorrowableItem(member, book.getBooks().get(i));
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
-                                }
-                            }
                             break;
-                        }else j=i;
-                    }if (entUid == 1){
-                        j++;
-                    }
-                }while (entUid == book.getBooks().get(j).getId());
+                        }
+                        else {
+                            System.err.println("Not find book");
+                        }
+                    }while (!libraryAction.checkIdItem(book,entUid));//entUid != book.getBooks().get(j).getId()
+                }catch (UndefinedItemException e){
+                    System.err.println("Error object");
+                }
             }
             case 2->{
                 magazine.printMagazine(member.getAccountStatus());
                 int entUid = 0;
-                int j = 0;
-                do {
-                    System.out.println("Please enter id book");
-                    while (!scan.hasNextInt()) {
-                        System.err.println("Please enter num");
-                    }
-                    entUid = scan.nextInt();
-                    for (int i = 0; i < magazine.getMagazine().size(); i++) {
-                        if (entUid == magazine.getMagazine().get(i).getId()) {
-                            if(magazine.getMagazine().get(i).isAvailable() == true){
-                                try {
-                                    member.setBorrowableItem(member,magazine.getMagazine().get(i));
-                                    libraryAction.borrowableItem(magazine,entUid);
-                                    System.out.println(magazine.getMagazine().get(i));
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
-                                }
-                            }else {
-                                try{
-                                    member.setBorrowableItem(member, magazine.getMagazine().get(i));
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
-                                }
+                try {
+                    do {
+                        System.out.println("Please enter id book");
+                        while (!scan.hasNextInt()) {
+                            System.err.println("Please enter num");
+                        }
+                        entUid = scan.nextInt();
+                            if (libraryAction.checkIdItem(magazine, entUid)) {
+                                for (int z = 0; z < member.getUsers().size(); z++) {
+                                    if (member.getUsers().get(z).getAccountStatus()) {
+                                        entUid = libraryAction.findIdItem(magazine,entUid);
+                                        member.setBorrowableItem(member, magazine.getMagazine().get(entUid));
+                                        libraryAction.borrowableItem(magazine, entUid);
+                                        System.out.println(magazine.getMagazine().get(entUid));
+                                        break;
+                                    }
+                                } break;
+                            } else {
+                                System.out.println("Not find magazine");
                             }
-                            break;
-                        }else j=i;
-                    }if (entUid == 1){
-                        j++;
-                    }
-                }while (entUid == magazine.getMagazine().get(j).getId());
+                    } while (!libraryAction.checkIdItem(magazine,entUid));
+                }catch (UndefinedItemException e){
+                    System.err.println("Error object");
+                }
             }
             case 3->{
                 dvd.printDvd(member.getAccountStatus());
                 int entUid = 0;
-                int j = 0;
-                do {
-                    System.out.println("Please enter id dvb");
-                    while (!scan.hasNextInt()) {
-                        System.err.println("Please enter num");
-                    }
-                    entUid = scan.nextInt();
-                    for (int i = 0; i < dvd.getDvd().size(); i++) {
-                        if (entUid == dvd.getDvd().get(i).getId()) {
-                            if(dvd.getDvd().get(i).isAvailable() == true){
-                                try {
-                                    member.setBorrowableItem(member,dvd.getDvd().get(i));
-                                    libraryAction.borrowableItem(dvd,entUid);
-                                    System.out.println(dvd.getDvd().get(i));
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
+                try {
+                    do {
+                        System.out.println("Please enter id dvb");
+                        while (!scan.hasNextInt()) {
+                            System.err.println("Please enter num");
+                        }
+                        entUid = scan.nextInt();
+                        if (libraryAction.checkIdItem(dvd, entUid)) {
+                            for (int z = 0; z < member.getUsers().size(); z++) {
+                                if (member.getUsers().get(z).getAccountStatus()) {
+                                    entUid = libraryAction.findIdItem(book,entUid);
+                                    member.setBorrowableItem(member, dvd.getDvd().get(entUid));
+                                    libraryAction.borrowableItem(dvd, entUid);
+                                    System.out.println(dvd.getDvd().get(entUid));
+                                    break;
                                 }
-                            }else {
-                                try{
-                                    member.setBorrowableItem(member, dvd.getDvd().get(i));
-                                }catch (UndefinedItemException e){
-                                    System.err.println("Not object");
-                                }
-                            }
-                            break;
-                        }else j=i;
-                    }if (entUid == 1){
-                        j++;
-                    }
-                }while (entUid == dvd.getDvd().get(j).getId());
+                            }break;
+                        } else {
+                            System.err.println("Not find Dvd");
+                        }
+
+                    } while (!libraryAction.checkIdItem(dvd,entUid));
+                }catch (UndefinedItemException e){
+                    System.out.println("Error object");
+                }
             }
         }
     }
@@ -180,7 +160,7 @@ public class Functional {
         switch (index){
             case 1->{
                 for(int i =0; i< member.getUsers().size();i++) {
-                    if(member.getUsers().get(i).getAccountStatus() == true) {
+                    if(member.getUsers().get(i).getAccountStatus()) {
                         for (int j = 0; j < member.getUsers().get(i).getBorrowableBook().size(); j++) {
                             System.out.println(member.getUsers().get(i).getBorrowableBook().get(j));
                         }
@@ -192,7 +172,6 @@ public class Functional {
                 }
                 int ind = scan.nextInt();
                 member.returnBorrowableBook(member,ind);
-                libraryAction.returnItem(book,ind);
             }
             case 2->{
                 for(int i =0; i <member.getBorrowableMagazine().size();i++){
@@ -203,8 +182,7 @@ public class Functional {
                     System.out.println("Please enter number");
                 }
                 int ind = scan.nextInt();
-                member.returnBorrowableMagazine(ind);
-                libraryAction.returnItem(magazine,ind);
+                member.returnBorrowableMagazine(member, ind);
             }
             case 3->{
                 for(int i =0; i <member.getBorrowableDvd().size();i++){
@@ -215,11 +193,10 @@ public class Functional {
                     System.out.println("Please enter number");
                 }
                 int ind = scan.nextInt();
-                member.returnBorrowableDvd(ind);
-                libraryAction.returnItem(dvd,ind);
+                member.returnBorrowableDvd(member,ind);
             }
             case 4->{
-                member.returnAllBorrowableItem();
+                member.returnAllBorrowableItem(member);
                 System.out.println("You successfully return all item ");
             }
         }

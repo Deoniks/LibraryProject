@@ -217,7 +217,7 @@ public class Magazine extends LibraryItem implements PaperItem {
         m[26] = new Magazine(27,"Мир фантастики Берсерк История лара",true,240,"November_23");
         m[27] = new Magazine(28,"WIRED",true,13024,"February_24");
         m[28] = new Magazine(29,"WIRED",true,12024,"January_24");
-        m[29] = new Magazine(39,"WIRED",true,11024,"December_23");
+        m[29] = new Magazine(30,"WIRED",true,11024,"December_23");
         m[30] = new Magazine(31,"WIRED",true,10024,"November_23");
         for(int i =0;i<valMagazine;i++){
             magazine.add(m[i]);

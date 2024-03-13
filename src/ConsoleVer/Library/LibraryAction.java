@@ -14,6 +14,7 @@ public class LibraryAction {
         String login = scan.nextLine();
         System.out.println("Enter password");
         String pass = scan.nextLine();
+        System.out.println("Enter rating");
         String rating = scan.nextLine();
         Member newMember = new Member(login,pass,true,rating);
         m.getUsers().add(newMember);
@@ -211,12 +212,7 @@ public class LibraryAction {
                 }
             }
             else if (object instanceof Dvd){
-                for(int i = 0; i<((Dvd) object).getDvd().size();i++){
-                    if(id == ((Dvd) object).getDvd().get(i).getId()){
-                        ((Dvd) object).getDvd().get(i).setAvailable(false);
-                        break;
-                    }
-                }
+                System.out.println("Dvd");
             }
         }
         else {
@@ -253,12 +249,12 @@ public class LibraryAction {
                 }else {
                     for (int i = 0; i < ((Book)object).getBooks().size(); i++) {
                         String equ = ((Book)object).getBooks().get(i).getTitle().toLowerCase();
-                        if (name.toLowerCase().equals(equ) && ((Book)object).getBooks().get(i).isAvailable()==true) {
+                        if (name.toLowerCase().equals(equ) && ((Book)object).getBooks().get(i).isAvailable()) {
                             System.out.println(((Book)object).getBooks().get(i).getTitle());
                         }else if(!name.toLowerCase().equals(equ)) {
                             String[] arrEqu = equ.split(" ");
                             for (String word:arrEqu){
-                                if (name.toLowerCase().equals(word) && ((Book)object).getBooks().get(i).isAvailable()==true) {
+                                if (name.toLowerCase().equals(word) && ((Book)object).getBooks().get(i).isAvailable()) {
                                     System.out.println(((Book)object).getBooks().get(i).getTitle());
                                 }
                             }
@@ -310,12 +306,12 @@ public class LibraryAction {
                     }else {
                         for (int i = 0; i < ((Book)object).getBooks().size(); i++) {
                             String equ = ((Book)object).getBooks().get(i).getAuthor().toLowerCase();
-                            if (author.toLowerCase().equals(equ) && ((Book)object).getBooks().get(i).isAvailable()==true) {
+                            if (author.toLowerCase().equals(equ) && ((Book)object).getBooks().get(i).isAvailable()) {
                                 System.out.println(((Book)object).getBooks().get(i).getAuthor());
                             }else if(!author.toLowerCase().equals(equ)) {
                                 String[] arrEqu = equ.split(" ");
                                 for (String word:arrEqu){
-                                    if (author.toLowerCase().equals(word) && ((Book)object).getBooks().get(i).isAvailable()==true) {
+                                    if (author.toLowerCase().equals(word) && ((Book)object).getBooks().get(i).isAvailable()) {
                                         System.out.println(((Book)object).getBooks().get(i).getAuthor());
                                     }
                                 }
@@ -342,7 +338,7 @@ public class LibraryAction {
             if(object instanceof Book){
                 for(int i =0; i<((Book)object).getBooks().size();i++) {
                     if (((Book) object).getBooks().get(i).getId() == id) {
-                        ((Book)object).getBooks().get(i).setAvailable(true);
+                        ((Book)object).getBooks().remove(i);
                         break;
                     }
                 }
@@ -350,7 +346,7 @@ public class LibraryAction {
             if(object instanceof Magazine){
                 for(int i =0; i<((Magazine)object).getMagazine().size();i++) {
                     if (((Magazine) object).getMagazine().get(i).getId() == id) {
-                        ((Magazine)object).getMagazine().get(i).setAvailable(true);
+                        ((Magazine)object).getMagazine().remove(i);
                         break;
                     }
                 }
@@ -358,7 +354,7 @@ public class LibraryAction {
             if(object instanceof Dvd){
                 for(int i =0; i<((Dvd)object).getDvd().size();i++) {
                     if (((Dvd) object).getDvd().get(i).getId() == id) {
-                        ((Dvd)object).getDvd().get(i).setAvailable(true);
+                        ((Dvd)object).getDvd().remove(i);
                         break;
                     }
                 }
@@ -368,11 +364,23 @@ public class LibraryAction {
             throw new UndefinedItemException();
         }
     }
-    private boolean checkIdItem(Object object, int id) throws UndefinedItemException{
+    public boolean checkIdItem(Object object, int id) throws UndefinedItemException{
         if(object instanceof Book || object instanceof Magazine || object instanceof Dvd){
             if(object instanceof Book){
                 for(int i = 0; i< ((Book) object).getBooks().size();i++){
-                    if(id == ((Book) object).getBooks().get(i).getId()){
+                    if(id == ((Book) object).getBooks().get(i).getId() && ((Book)object).getBooks().get(i).isAvailable()){
+                        return true;
+                    }
+                }return false;
+            } else if(object instanceof Magazine){
+                for(int i = 0; i< ((Magazine) object).getMagazine().size();i++){
+                    if(id == ((Magazine) object).getMagazine().get(i).getId() && ((Magazine) object).getMagazine().get(i).isAvailable()){
+                        return true;
+                    }
+                }return false;
+            }else if(object instanceof Dvd){
+                for(int i = 0; i< ((Dvd) object).getDvd().size();i++){
+                    if(id == ((Dvd) object).getDvd().get(i).getId() && ((Dvd) object).getDvd().get(i).isAvailable()){
                         return true;
                     }
                 }return false;
@@ -382,5 +390,36 @@ public class LibraryAction {
             throw new UndefinedItemException();
         }
         return false;
+    }
+    public int findIdItem(Object object, int id) throws UndefinedItemException{
+        if(object instanceof Book || object instanceof Magazine || object instanceof Dvd){
+            if(object instanceof Book){
+                for(int i = 0; i< ((Book) object).getBooks().size();i++){
+                    if(id == ((Book) object).getBooks().get(i).getId()){
+                        id = i;
+                        return id;
+                    }
+                }return -1;
+            } else if(object instanceof Magazine){
+                for(int i = 0; i< ((Magazine) object).getMagazine().size();i++){
+                    if(id == ((Magazine) object).getMagazine().get(i).getId()){
+                        id = i;
+                        return id;
+                    }
+                } return -1;
+            }
+            else if(object instanceof Dvd){
+                for(int i = 0; i< ((Dvd) object).getDvd().size();i++){
+                    if(id == ((Dvd) object).getDvd().get(i).getId()){
+                        id = i;
+                        return id;
+                    }
+                }return -1;
+            }
+        }
+        else {
+            throw new UndefinedItemException();
+        }
+        return id;
     }
 }

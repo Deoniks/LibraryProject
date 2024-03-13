@@ -15,7 +15,6 @@ public class Member extends Users{
     private LinkedList<Book>borrowableBook = new LinkedList<>();
     private LinkedList<Magazine>borrowableMagazine = new LinkedList<>();
     private LinkedList<Dvd>borrowableDvd = new LinkedList<>();
-    //private HashMap<Integer,Book>borrowableBoosk = new HashMap<>();
     private String authorization = "N";
     private boolean isOnline = false;
     private boolean isActive = true;
@@ -65,7 +64,7 @@ public class Member extends Users{
 
     public void setAccountStatus(boolean isEnt){ //Для проверки входа пользователя
         isOnline = isEnt;
-        if(isOnline == false){
+        if(!isOnline){
             isOnline = false;
         }else isOnline = true;
     }
@@ -103,8 +102,8 @@ public class Member extends Users{
         m[2] = new Member("Luffy","Aa1234aA",true,"bronze");
         m[3] = new Member("Member","mEMBER",true,"bronze");
         m[4] = new Member("Ali","0sd3a21l",true,"bronze");
-        for (int i =0;i<m.length;i++){
-            users.add(m[i]);
+        for (Member member : m) {
+            users.add(member);
         }
     }// Список пользователей
 
@@ -115,10 +114,12 @@ public class Member extends Users{
         return isActive = false;
     }
 
-    public boolean isAct(){
-        for(int i =0;i<users.size();i++){
-            if(users.get(i).isActive == true){
-                return true;
+    public boolean isAct(Member m){
+        for(int i =0;i<m.getUsers().size();i++){
+            if(m.getUsers().get(i).isOnline){
+                if(m.getUsers().get(i).isActive) {
+                    return true;
+                }
             }else return false;
         }return false;
     }// проверка профиля пользователя
@@ -126,9 +127,9 @@ public class Member extends Users{
     public void setBorrowableItem(Member m, Object object) throws UndefinedItemException {
         if(object instanceof Book || object instanceof Magazine|| object instanceof Dvd) {
             if(object instanceof Book){
-                if(((Book) object).isAvailable() == true){
+                if(((Book) object).isAvailable()){
                     for (int i=0;i<m.getUsers().size();i++){
-                        if(m.getUsers().get(i).isOnline==true){
+                        if(m.getUsers().get(i).isOnline){
                             m.getUsers().get(i).borrowableBook.add(((Book) object));
                             break;
                         }
@@ -136,11 +137,11 @@ public class Member extends Users{
 
                 }else System.err.println("This don't borrowable book");
             }else if(object instanceof Magazine){
-                if(((Magazine)object).isAvailable() == true){
+                if(((Magazine)object).isAvailable()){
                     borrowableMagazine.add((Magazine) object);
                 }else System.err.println("This don't borrowable book");
             }else if(object instanceof Dvd){
-                if(((Dvd)object).isAvailable() == true){
+                if(((Dvd)object).isAvailable()){
                     borrowableDvd.add(((Dvd)object));
                 }else System.err.println("This don't borrowable book");
             }
@@ -150,58 +151,80 @@ public class Member extends Users{
     } // test Method
 
     public void setBorrowableBook(Book book){
-        if(book.isAvailable() == true){
+        if(book.isAvailable()){
             borrowableBook.add(book);
         }else System.err.println("This don't borrowable book");
     }
     public void setBorrowableMagazine(Magazine magazine){
-        if(magazine.isAvailable() == true){
+        if(magazine.isAvailable()){
             borrowableMagazine.add(magazine);
         }else System.err.println("This don't borrowable book");
     }
     public void setBorrowableDvd(Dvd dvd){
-        if(dvd.isAvailable() == true){
+        if(dvd.isAvailable()){
             borrowableDvd.add(dvd);
         }else System.err.println("This don't borrowable dvd");
     }
-    public void returnAllBorrowableItem(){
-        for (int i = borrowableBook.size()-1; i!=-1;i--){
-            borrowableBook.remove(i);
-        }
-        for (int i = borrowableMagazine.size()-1; i!=-1;i--){
-            borrowableMagazine.remove(i);
-        }
-        for (int i = borrowableDvd.size()-1; i!=-1;i--){
-            borrowableDvd.remove(i);
+    public void returnAllBorrowableItem(Member m){
+        for (int i = 0; i < m.getUsers().size();i++){
+            if(m.getUsers().get(i).getAccountStatus()){
+                for (int j = borrowableBook.size()-1; j!=-1;j--){
+                    borrowableBook.remove(j);
+                }
+                for (int j = borrowableMagazine.size()-1; j!=-1;j--){
+                    borrowableMagazine.remove(j);
+                }
+                for (int j = borrowableDvd.size()-1; j!=-1;j--){
+                    borrowableDvd.remove(j);
+                }
+            }
         }
     } // Возврат всех предметов
     public void returnBorrowableBook(Member m, int index){
         for (int i = 0; i<m.getUsers().size();i++){
-            if(m.getUsers().get(i).getAccountStatus() == true) {
-                for(int j=0;j<m.getUsers().get(i).borrowableBook.size();j++) {
-                    if (m.getUsers().get(i).isOnline == true) {
-                        if (index == m.getUsers().get(i).borrowableBook.get(j).getId()) {
-                            System.out.println(m.getUsers().get(i).borrowableBook.get(j));
-                            m.getUsers().get(i).borrowableBook.remove(j);
+            if(m.getUsers().get(i).getAccountStatus()) {
+                if(!m.getUsers().get(i).borrowableBook.isEmpty()) {
+                    for (int j = 0; j < m.getUsers().get(i).borrowableBook.size(); j++) {
+                        if (m.getUsers().get(i).isOnline) {
+                            if (index == m.getUsers().get(i).borrowableBook.get(j).getId()) {
+                                System.out.println(m.getUsers().get(i).borrowableBook.get(j));
+                                m.getUsers().get(i).borrowableBook.remove(j);
+                            }
                         }
                     }
-                }
+                }else System.out.println("You didn't take the book");
             }
         }
     } //индивидуальный возврат
-    public void returnBorrowableMagazine(int index){
-        for (int i = 0; i<borrowableMagazine.size();i++){
-            if(index == borrowableMagazine.get(i).getId()){
-                System.out.println(borrowableMagazine.get(i));
-                borrowableMagazine.remove(i);
+    public void returnBorrowableMagazine(Member m, int index){
+        for (int i = 0; i<m.getUsers().size();i++){
+            if(m.getUsers().get(i).getAccountStatus()) {
+                if(!m.getUsers().get(i).borrowableMagazine.isEmpty()) {
+                    for (int j = 0; j < m.getUsers().get(i).borrowableMagazine.size(); j++) {
+                        if (m.getUsers().get(i).isOnline) {
+                            if (index == m.getUsers().get(i).borrowableMagazine.get(j).getId()) {
+                                System.out.println(m.getUsers().get(i).borrowableMagazine.get(j));
+                                m.getUsers().get(i).borrowableMagazine.remove(j);
+                            }
+                        }
+                    }
+                }else System.out.println("You didn't take the magazine");
             }
         }
     }
-    public void returnBorrowableDvd(int index){
-        for (int i = 0; i<borrowableDvd.size();i++){
-            if(index == borrowableDvd.get(i).getId()){
-                System.out.println(borrowableDvd.get(i));
-                borrowableDvd.remove(i);
+    public void returnBorrowableDvd(Member m, int index){
+        for (int i = 0; i<m.getUsers().size();i++){
+            if(m.getUsers().get(i).getAccountStatus()) {
+                if(!m.getUsers().get(i).borrowableDvd.isEmpty()) {
+                    for (int j = 0; j < m.getUsers().get(i).borrowableDvd.size(); j++) {
+                        if (m.getUsers().get(i).isOnline) {
+                            if (index == m.getUsers().get(i).borrowableDvd.get(j).getId()) {
+                                System.out.println(m.getUsers().get(i).borrowableDvd.get(j));
+                                m.getUsers().get(i).borrowableDvd.remove(j);
+                            }
+                        }
+                    }
+                }else System.out.println("You didn't take the book");
             }
         }
     }

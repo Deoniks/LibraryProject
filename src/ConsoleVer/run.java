@@ -12,8 +12,8 @@ public class run extends Functional{
     private static String lib = "Librarian";
     private static String memb = "Member";
 
-    public static void main(String[] args) {
-        while (exitToProgram == false) {
+    public static void main(String[] args) throws UndefinedItemException {
+        while (!exitToProgram ) {
             exitToLogin = false;
             String enterUser = loginMenu(); //Запуск-меню-выбор-авторизация
             if (lib.equals(enterUser)) {
@@ -53,10 +53,10 @@ public class run extends Functional{
                 return "n";
         }
     }
-    public static void menuMember() {
-        while (exitToLogin == false) {
+    public static void menuMember() throws UndefinedItemException{
+        while (!exitToLogin) {
             isOnline();
-            if(member.isAct() == true){
+            if(member.isAct(member)){
                 System.out.println("\n_____________________________________________________\n");
                 System.out.println("1.Borrowable Item\n2.Return Item\n3.Check Profile\n4.Exit");
                 while (!scan.hasNextInt()) {
@@ -86,7 +86,7 @@ public class run extends Functional{
                     }
                     case 3 -> {
                         System.out.println("Check Profile");
-                        if(member.isAct() == true){
+                        if(member.isAct(member)){
                             System.out.println("Active");
                         }else System.out.println("False");
                     }
@@ -106,7 +106,7 @@ public class run extends Functional{
                 switch (wUser) {
                     case 1 -> {
                         System.out.println("Check Profile");
-                        if(member.isAct() == true){
+                        if(member.isAct(member)){
                             System.out.println("Active");
                         }else System.out.println("False");
                     }
@@ -119,7 +119,7 @@ public class run extends Functional{
         }
     }
     public static void menuLibrarian() {
-        while (exitToLogin == false){
+        while (!exitToLogin){
             System.out.println("\n_____________________________________________________\n");
             System.out.println("1.Library Item\n2.De/a'ctivate Profile\n3.Check Profile\n4.Add/Delete\n5.Exit");
             while (!scan.hasNextInt()) {
