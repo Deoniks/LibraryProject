@@ -68,7 +68,7 @@ public class Functional {
         switch (index){
             case 1->{
                 book.printBook(member.getAccountStatus());
-                int entUid = 0;
+                int eUid = 0;
                 try{
                     do {
                         System.out.println("Please enter id book");
@@ -76,13 +76,13 @@ public class Functional {
                             System.err.println("Please enter num");
                             scan.nextLine();
                         }
-                        entUid = scan.nextInt();
-                        if (libraryAction.checkIdItem(book, entUid)) {
+                        eUid = scan.nextInt();
+                        if (libraryAction.checkIdItem(book, eUid)) {
                                     for (int z = 0; z < member.getUsers().size(); z++) {
                                         if (member.getUsers().get(z).getAccountStatus()) {
-                                            entUid = libraryAction.findIdItem(book,entUid);
+                                            int entUid = libraryAction.findIdItem(book,eUid);
                                             member.getUsers().get(z).setBorrowableItem(member, book.getBooks().get(entUid));
-                                            libraryAction.borrowableItem(book, entUid);
+                                            libraryAction.borrowableItem(book, eUid);
                                             System.out.println(book.getBooks().get(entUid));
                                             break;
                                         }
@@ -92,7 +92,7 @@ public class Functional {
                         else {
                             System.err.println("Not find book");
                         }
-                    }while (!libraryAction.checkIdItem(book,entUid));//entUid != book.getBooks().get(j).getId()
+                    }while (!libraryAction.checkIdItem(book,eUid));//entUid != book.getBooks().get(j).getId()
                 }catch (UndefinedItemException e){
                     System.err.println("Error object");
                 }
@@ -138,7 +138,7 @@ public class Functional {
                         if (libraryAction.checkIdItem(dvd, entUid)) {
                             for (int z = 0; z < member.getUsers().size(); z++) {
                                 if (member.getUsers().get(z).getAccountStatus()) {
-                                    entUid = libraryAction.findIdItem(book,entUid);
+                                    entUid = libraryAction.findIdItem(dvd,entUid);
                                     member.setBorrowableItem(member, dvd.getDvd().get(entUid));
                                     libraryAction.borrowableItem(dvd, entUid);
                                     System.out.println(dvd.getDvd().get(entUid));
@@ -161,9 +161,12 @@ public class Functional {
             case 1->{
                 for(int i =0; i< member.getUsers().size();i++) {
                     if(member.getUsers().get(i).getAccountStatus()) {
-                        for (int j = 0; j < member.getUsers().get(i).getBorrowableBook().size(); j++) {
-                            System.out.println(member.getUsers().get(i).getBorrowableBook().get(j));
-                        }
+                        if(!member.getUsers().get(i).getBorrowableBook().isEmpty()) {
+                            for (int j = 0; j < member.getUsers().get(i).getBorrowableBook().size(); j++) {
+                                System.out.println(member.getUsers().get(i).getBorrowableBook().get(j));
+                            }
+                            break;
+                        }else break;
                     }
                 }
                 System.out.println("Enter id for return book");
@@ -174,8 +177,15 @@ public class Functional {
                 member.returnBorrowableBook(member,ind);
             }
             case 2->{
-                for(int i =0; i <member.getBorrowableMagazine().size();i++){
-                    System.out.println(member.getBorrowableMagazine().get(i));
+                for(int i =0; i< member.getUsers().size();i++) {
+                    if(member.getUsers().get(i).getAccountStatus()) {
+                        if(!member.getUsers().get(i).getBorrowableMagazine().isEmpty()) {
+                            for (int j = 0; j < member.getUsers().get(i).getBorrowableMagazine().size(); j++) {
+                                System.out.println(member.getUsers().get(i).getBorrowableMagazine().get(j));
+                            }
+                            break;
+                        }
+                    }
                 }
                 System.out.println("Enter id for return magazine");
                 while (!scan.hasNextInt()){
@@ -185,8 +195,15 @@ public class Functional {
                 member.returnBorrowableMagazine(member, ind);
             }
             case 3->{
-                for(int i =0; i <member.getBorrowableDvd().size();i++){
-                    System.out.println(member.getBorrowableDvd().get(i));
+                for(int i =0; i< member.getUsers().size();i++) {
+                    if(member.getUsers().get(i).getAccountStatus()) {
+                        if(!member.getUsers().get(i).getBorrowableDvd().isEmpty()) {
+                            for (int j = 0; j < member.getUsers().get(i).getBorrowableDvd().size(); j++) {
+                                System.out.println(member.getUsers().get(i).getBorrowableDvd().get(j));
+                            }
+                            break;
+                        }
+                    }
                 }
                 System.out.println("Enter id for return dvd");
                 while (!scan.hasNextInt()){

@@ -134,15 +134,24 @@ public class Member extends Users{
                             break;
                         }
                     }
-
                 }else System.err.println("This don't borrowable book");
             }else if(object instanceof Magazine){
                 if(((Magazine)object).isAvailable()){
-                    borrowableMagazine.add((Magazine) object);
+                    for (int i=0;i<m.getUsers().size();i++){
+                        if(m.getUsers().get(i).isOnline){
+                            m.getUsers().get(i).borrowableMagazine.add(((Magazine) object));
+                            break;
+                        }
+                    }
                 }else System.err.println("This don't borrowable book");
             }else if(object instanceof Dvd){
                 if(((Dvd)object).isAvailable()){
-                    borrowableDvd.add(((Dvd)object));
+                    for (int i=0;i<m.getUsers().size();i++){
+                        if(m.getUsers().get(i).isOnline){
+                            m.getUsers().get(i).borrowableDvd.add(((Dvd) object));
+                            break;
+                        }
+                    }
                 }else System.err.println("This don't borrowable book");
             }
         }else {
@@ -189,7 +198,7 @@ public class Member extends Users{
                             if (index == m.getUsers().get(i).borrowableBook.get(j).getId()) {
                                 System.out.println(m.getUsers().get(i).borrowableBook.get(j));
                                 m.getUsers().get(i).borrowableBook.remove(j);
-                            }
+                            }else System.err.println("Not find id");
                         }
                     }
                 }else System.out.println("You didn't take the book");
@@ -206,6 +215,7 @@ public class Member extends Users{
                                 System.out.println(m.getUsers().get(i).borrowableMagazine.get(j));
                                 m.getUsers().get(i).borrowableMagazine.remove(j);
                             }
+                            else System.err.println("Not find id");
                         }
                     }
                 }else System.out.println("You didn't take the magazine");
@@ -221,7 +231,7 @@ public class Member extends Users{
                             if (index == m.getUsers().get(i).borrowableDvd.get(j).getId()) {
                                 System.out.println(m.getUsers().get(i).borrowableDvd.get(j));
                                 m.getUsers().get(i).borrowableDvd.remove(j);
-                            }
+                            }else System.err.println("Not find id");
                         }
                     }
                 }else System.out.println("You didn't take the book");
